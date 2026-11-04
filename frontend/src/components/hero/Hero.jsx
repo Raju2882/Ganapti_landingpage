@@ -78,9 +78,7 @@ export default function Hero() {
                                 Download Brochure
                             </a>
 
-                            <a href="#contact" className="btn-secondary">
-                                Enquire Now
-                            </a>
+                            
 
                         </div>
 

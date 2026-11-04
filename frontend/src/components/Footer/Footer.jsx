@@ -91,7 +91,7 @@ export default function Footer() {
           className="action-btn call-btn"
         >
           <FaPhoneAlt />
-          <span>Call</span>
+          <span>Call Now</span>
         </a>
 
        
@@ -101,7 +101,7 @@ export default function Footer() {
           className="action-btn enquire-btn"
         >
           <FaRegEdit />
-          <span>Enquire</span>
+          <span> Enquire Now</span>
         </a>
 
       </div>
