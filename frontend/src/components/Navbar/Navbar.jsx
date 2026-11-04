@@ -46,7 +46,7 @@ export default function Navbar() {
 
           <div className="navbar-right">
 
-            <a href="tel:+918884735735" className="phone-box">
+            <a href="tel:++91 99649 10330" className="phone-box">
 
               <div className="phone-icon">
 
@@ -58,7 +58,7 @@ export default function Navbar() {
 
                 <small>Call Us</small>
 
-                <h4>+91 75410 14101</h4>
+                <h4>+91 99649 10330</h4>
 
               </div>
 

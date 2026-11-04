@@ -105,7 +105,7 @@
     background: #FFFFFF;
     border-radius: 14px;
 
-    color: #304B9A;
+    color:#d8b14a;
     font-size: 25px;
 
     border: none;
@@ -115,7 +115,7 @@
 }
 
 .location-card:hover .card-icon {
-    background: #304B9A;
+    background:#d8b14a;
     color: #FFFFFF;
 }
 

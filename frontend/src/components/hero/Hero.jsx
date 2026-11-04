@@ -1,5 +1,6 @@
 
 import "./Hero.css";
+import { useState, useEffect } from "react";
 import heroImage from "../../assets/images/hero.png";
 
 import {
@@ -11,11 +12,24 @@ import {
     FaPhoneAlt
 } from "react-icons/fa";
 
+import EnquiryModal from "../EnquiryModal/EnquiryModal";
+
 export default function Hero() {
+    const [openModal, setOpenModal] = useState(false);
+
+    useEffect(() => {
+        const openEnquiry = () => setOpenModal(true);
+
+        window.addEventListener("open-enquiry-modal", openEnquiry);
+
+        return () => {
+            window.removeEventListener("open-enquiry-modal", openEnquiry);
+        };
+    }, []);
+
     return (
         <section className="hero" id="home">
 
-            {/* Background Image */}
             <div className="hero-bg">
                 <img
                     src={heroImage}
@@ -23,15 +37,12 @@ export default function Hero() {
                 />
             </div>
 
-            {/* Dark Overlay */}
             <div className="hero-overlay"></div>
 
-            {/* Main Content */}
             <div className="hero-container">
 
                 <div className="hero-layout">
 
-                    {/* LEFT CONTENT */}
                     <div className="hero-content">
 
                         <span className="hero-badge">
@@ -44,9 +55,6 @@ export default function Hero() {
                             <span>In Doddaballapur</span>
                         </h1>
 
-                       
-
-                        {/* Project Highlights */}
                         <div className="hero-highlights">
 
                             <div className="hero-highlight">
@@ -71,18 +79,12 @@ export default function Hero() {
 
                         </div>
 
-                        {/* Buttons */}
                         <div className="hero-buttons">
-
-                            <a href="#contact" className="btn-primary">
+                            <a href="https://ashrayaestates.com/wp-content/uploads/2025/12/Ashraya-Aarika-E-Brochure.pdf" className="btn-primary">
                                 Download Brochure
                             </a>
-
-                            
-
                         </div>
 
-                        {/* Bottom Message */}
                         <div className="hero-bottom-message">
                             <span className="hero-dot"></span>
                             Your Dream Plot. Your Future Investment.
@@ -90,104 +92,24 @@ export default function Hero() {
 
                     </div>
 
-                    {/* RIGHT ENQUIRY FORM */}
-                    <div className="hero-form-card" id="hero-enquiry">
+                    <div className="hero-form-card">
 
                         <h2>
-                            Connect With Our
-                            <br />
-                            Property Experts
+                            Interested in Our Premium Plots?
                         </h2>
 
                         <p className="form-subtitle">
                             Get complete project details and site visit assistance.
                         </p>
 
-                        <div className="hero-form-fields">
-
-                            <input
-                                type="text"
-                                placeholder="Full Name *"
-                                aria-label="Full Name"
-                                required
-                            />
-
-                            <input
-                                type="email"
-                                placeholder="Email Address *"
-                                aria-label="Email Address"
-                                required
-                            />
-
-                            <input
-                                type="tel"
-                                placeholder="Contact Number *"
-                                aria-label="Contact Number"
-                                required
-                            />
-
-                            <select
-                                defaultValue=""
-                                aria-label="Select State"
-                                required
-                            >
-                                <option value="" disabled>
-                                    Select State *
-                                </option>
-                                <option value="Karnataka">Karnataka</option>
-                                <option value="Maharashtra">Maharashtra</option>
-                                <option value="Tamil Nadu">Tamil Nadu</option>
-                                <option value="Kerala">Kerala</option>
-                                <option value="Telangana">Telangana</option>
-                                <option value="Other">Other</option>
-                            </select>
-
-                            <select
-                                defaultValue=""
-                                aria-label="Select City"
-                                required
-                            >
-                                <option value="" disabled>
-                                    Select City / District *
-                                </option>
-                                <option value="Bengaluru">
-                                    Bengaluru
-                                </option>
-                                <option value="Doddaballapur">
-                                    Doddaballapur
-                                </option>
-                                <option value="Yelahanka">
-                                    Yelahanka
-                                </option>
-                                <option value="Devanahalli">
-                                    Devanahalli
-                                </option>
-                                <option value="Other">
-                                    Other
-                                </option>
-                            </select>
-
-                        </div>
-
-                        {/* Consent */}
-                        <label className="hero-consent">
-                            <input type="checkbox" defaultChecked required />
-
-                            <span>
-                                I authorize Ashraya Aarika and its associates
-                                to contact me via Email, SMS, WhatsApp and
-                                Voice Call.
-                            </span>
-                        </label>
-
-                        {/* Submit / Contact CTA */}
-                        <a
-                            href="#contact"
+                        <button
+                            type="button"
                             className="hero-form-submit"
+                            onClick={() => setOpenModal(true)}
                         >
                             <FaPhoneAlt />
-                            Book My Free Site Visit
-                        </a>
+                            Enquire Now
+                        </button>
 
                         <p className="hero-form-note">
                             Our property consultant will assist you shortly.
@@ -197,7 +119,6 @@ export default function Hero() {
 
                 </div>
 
-                {/* STATISTICS BAR */}
                 <div className="hero-stats">
 
                     <div className="hero-stat">
@@ -222,12 +143,15 @@ export default function Hero() {
 
                 </div>
 
+                <a href="#about" className="scroll-down">
+                    <FaArrowDown />
+                </a>
+
             </div>
 
-            {/* Scroll Indicator */}
-            <a href="#about" className="scroll-down">
-                <FaArrowDown />
-            </a>
+            {openModal && (
+                <EnquiryModal onClose={() => setOpenModal(false)} />
+            )}
 
         </section>
     );

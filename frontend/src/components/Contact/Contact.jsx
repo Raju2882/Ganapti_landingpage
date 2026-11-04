@@ -69,7 +69,7 @@ export default function Contact() {
 
                 <h4>Call Us</h4>
 
-                <p>+91 75410 14101</p>
+                <p>++91 99649 10330</p>
 
               </div>
 

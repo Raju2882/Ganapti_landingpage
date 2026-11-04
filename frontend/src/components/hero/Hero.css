@@ -20,7 +20,7 @@
     display: flex;
     align-items: stretch;
     overflow: hidden;
-    background: #172033;
+    background:#d8b14a;
 }
 
 /* Background */
@@ -188,11 +188,10 @@
 }
 
 .btn-primary {
-    background: #304b9a;
+    background:#d8b14a;
     color: #fff;
-    border: 1px solid #304b9a;
+    border: 1px solid #d8b14a
 }
-
 .btn-primary:hover {
     background: #233b80;
     color: #fff;
@@ -324,7 +323,7 @@
 
 .hero-consent input {
     margin-top: 3px;
-    accent-color: #304b9a;
+    accent-color: #d8b14a;
     flex-shrink: 0;
     cursor: pointer;
 }
@@ -340,7 +339,7 @@
     justify-content: center;
     gap: 10px;
 
-    background: #304b9a;
+    background:#d8b14a;
     color: #fff;
 
     border-radius: 9px;
@@ -354,7 +353,7 @@
 }
 
 .hero-form-submit:hover {
-    background: #233b80;
+    background: #d8b14a;
     color: #fff;
     transform: translateY(-2px);
 }
@@ -400,7 +399,7 @@
 }
 
 .hero-stat h3 {
-    color: #304b9a;
+    color:#d8b14a;
     font-size: 29px;
     font-weight: 700;
     margin: 0 0 5px;
@@ -596,6 +595,7 @@
     .hero-buttons {
         gap: 10px;
         width: 100%;
+        baclkground:#d8b14a  !important;
     }
 
     .btn-primary,
@@ -660,7 +660,7 @@
     }
 
     .hero-stat:nth-child(odd) {
-        border-right: 1px solid #304b9a;
+        border-right: 1px solid #d8b14a;
     }
 
     .hero-stat h3 {
@@ -670,4 +670,212 @@
     .hero-stat p {
         font-size: 11px;
     }
+}
+
+/* =====================================
+   ENLARGED HERO ENQUIRY FORM
+===================================== */
+
+.hero {
+    min-height: 950px;
+    padding: 110px 4% 130px;
+}
+
+.hero-layout {
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 45px;
+    min-height: 780px;
+    align-items: center;
+}
+
+/* Main Form Card */
+
+.hero-form-card {
+    width: 100%;
+    max-width: 560px;
+    justify-self: end;
+
+    padding: 38px 38px 32px;
+
+    background: #ffffff;
+    border-radius: 18px;
+
+    box-shadow: 0 20px 55px rgba(0, 0, 0, 0.25);
+
+    color: #111;
+}
+
+/* Form Heading */
+
+.hero-form-card h2 {
+    font-size: 31px;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 12px;
+}
+
+/* Subtitle */
+
+.form-subtitle {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 22px;
+    color: #777;
+}
+
+/* Two Column Form Fields */
+
+.hero-form-fields {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 22px;
+    row-gap: 13px;
+}
+
+/* Input and Select */
+
+.hero-form-fields input,
+.hero-form-fields select {
+    width: 100%;
+    height: 58px;
+
+    padding: 12px 8px;
+
+    border: none;
+    border-bottom: 1px solid #d4d8e1;
+    border-radius: 0;
+
+    background: transparent;
+
+    color: #333;
+    font-family: inherit;
+    font-size: 14px;
+
+    outline: none;
+    transition: 0.3s ease;
+}
+
+.hero-form-fields input:focus,
+.hero-form-fields select:focus {
+    border-bottom: 2px solid #304b9a;
+}
+
+/* Consent Checkbox */
+
+.hero-consent,
+.hero-form-authorization {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+
+    margin-top: 22px;
+    margin-bottom: 22px;
+
+    color: #666;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.hero-consent input,
+.hero-form-authorization input {
+    margin-top: 3px;
+    accent-color: #304b9a;
+    flex-shrink: 0;
+}
+
+/* Submit Button */
+
+.hero-form-submit {
+    width: 100%;
+    min-height: 56px;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    border-radius: 8px;
+}
+
+/* =====================================
+   TABLET RESPONSIVE
+===================================== */
+
+@media (max-width: 1100px) {
+
+    .hero {
+        min-height: 950px;
+    }
+
+    .hero-layout {
+        grid-template-columns: 1fr 0.95fr;
+        gap: 25px;
+    }
+
+    .hero-form-card {
+        max-width: 510px;
+        padding: 30px 25px;
+    }
+
+}
+
+/* =====================================
+   TABLET AND MOBILE
+===================================== */
+
+@media (max-width: 768px) {
+
+    .hero {
+        min-height: auto;
+        padding: 100px 25px 0;
+    }
+
+    .hero-layout {
+        grid-template-columns: 1fr;
+        gap: 35px;
+        min-height: auto;
+        padding-bottom: 35px;
+    }
+
+    .hero-form-card {
+        max-width: 100%;
+        padding: 32px 25px;
+    }
+
+    .hero-form-fields {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .hero-stats {
+        position: relative;
+        width: calc(100% + 50px);
+        left: -25px;
+        bottom: auto;
+    }
+
+}
+
+/* =====================================
+   SMALL MOBILE
+===================================== */
+
+@media (max-width: 576px) {
+
+    .hero-form-card {
+        padding: 25px 20px;
+    }
+
+    .hero-form-card h2 {
+        font-size: 25px;
+    }
+
+    .hero-form-fields {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .hero-form-fields input,
+    .hero-form-fields select {
+        height: 52px;
+        font-size: 13px;
+    }
+
 }

@@ -1,83 +1,56 @@
 
 import "./Footer.css";
-import logo from "../../assets/images/logo.png";
-
 import {
+  FaPhoneAlt,
+  FaWhatsapp,
   FaFacebookF,
   FaInstagram,
-  FaLinkedinIn,
-  FaWhatsapp,
-  FaPhoneAlt,
-  FaRegEdit
+  FaYoutube
 } from "react-icons/fa";
 
 export default function Footer() {
-  const phoneNumber = "919876543210"; // Replace with your actual number
+  const handleEnquiryClick = () => {
+    window.dispatchEvent(new Event("open-enquiry-modal"));
+  };
 
   return (
-    <footer className="footer">
+    <footer className="footer" id="contact">
 
-      <div className="container-custom footer-container">
+      <div className="footer-container">
 
         {/* Brand */}
         <div className="footer-brand">
-          <img
-            src={logo}
-            alt="Ashraya Estates Logo"
-            className="footer-logo"
-          />
-
+          {/* Add your logo here if available */}
           <h3>Ashraya Estates</h3>
 
           <p className="footer-description">
-            Discover thoughtfully planned residential layouts
-            and build your future with confidence.
+            Discover premium residential plots and find the perfect
+            place to build your dream home with Ashraya Estates.
           </p>
         </div>
 
-        {/* Social Links */}
+        {/* Social Icons */}
         <div className="footer-social">
-          <a href="https://facebook.com/"
-             target="_blank"
-             rel="noopener noreferrer"
-             aria-label="Facebook">
+          <a href="https://www.facebook.com/profile.php?id=61574974296271" target="_blank" rel="noreferrer" aria-label="Facebook">
             <FaFacebookF />
           </a>
 
-          <a href="https://instagram.com/"
-             target="_blank"
-             rel="noopener noreferrer"
-             aria-label="Instagram">
+          <a href="https://www.instagram.com/ashraya_estates/" target="_blank" rel="noreferrer" aria-label="Instagram">
             <FaInstagram />
           </a>
 
-          <a href="https://linkedin.com/"
-             target="_blank"
-             rel="noopener noreferrer"
-             aria-label="LinkedIn">
-            <FaLinkedinIn />
-          </a>
-
-          <a href={`https://wa.me/${phoneNumber}`}
-             target="_blank"
-             rel="noopener noreferrer"
-             aria-label="WhatsApp">
-            <FaWhatsapp />
+          <a href="https://www.youtube.com/" target="_blank" rel="noreferrer" aria-label="YouTube">
+            <FaYoutube />
           </a>
         </div>
 
-        {/* Footer Divider */}
         <div className="footer-line"></div>
 
-        {/* Copyright */}
+        {/* Bottom Section */}
         <div className="footer-bottom">
-          <p className="copyright">
-            © {new Date().getFullYear()} Ashraya Estates.
-            All Rights Reserved.
-          </p>
-
+          <p>© {new Date().getFullYear()} Ashraya Estates. All Rights Reserved.</p>
           <p className="footer-tagline">
-            Designed for Better Living
+            Your Dream Plot. Your Future Investment.
           </p>
         </div>
 
@@ -86,23 +59,20 @@ export default function Footer() {
       {/* Mobile Sticky Action Bar */}
       <div className="footer-action-bar">
 
-        <a
-          href={`tel:+${phoneNumber}`}
-          className="action-btn call-btn"
-        >
+        <a href="tel:++91 99649 10330" className="action-btn call-btn">
           <FaPhoneAlt />
-          <span>Call Now</span>
+          Call
         </a>
 
-       
+        
 
-        <a
-          href="#enquiry"
+        <button
+          type="button"
           className="action-btn enquire-btn"
+          onClick={handleEnquiryClick}
         >
-          <FaRegEdit />
-          <span> Enquire Now</span>
-        </a>
+          Enquire
+        </button>
 
       </div>
 

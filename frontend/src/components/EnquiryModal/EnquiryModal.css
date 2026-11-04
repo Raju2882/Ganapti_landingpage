@@ -1,0 +1,162 @@
+
+.enquiry-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100000;
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(6px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.enquiry-modal {
+    position: relative;
+    width: 100%;
+    max-width: 680px;
+    max-height: 92vh;
+    overflow-y: auto;
+    background: #fff;
+    border-radius: 18px;
+    padding: 25px;
+    animation: enquiryPopup 0.3s ease;
+}
+
+.popup-hero-form {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 10px;
+    background: #fff;
+    box-shadow: none;
+}
+
+.popup-hero-form h2 {
+    color: #173b35;
+    font-size: 26px;
+    margin-bottom: 8px;
+}
+
+.popup-hero-form .form-subtitle {
+    color: #777;
+    margin-bottom: 20px;
+}
+
+.popup-hero-form .hero-form-fields {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.popup-hero-form input:not([type="checkbox"]),
+.popup-hero-form select {
+    width: 100%;
+    min-width: 0;
+    padding: 13px;
+    border: 1px solid #ddd;
+    border-radius: 7px;
+    outline: none;
+    font-size: 14px;
+    background: white;
+}
+
+.popup-hero-form input:focus,
+.popup-hero-form select:focus {
+    border-color: #173b35;
+}
+
+.modal-close {
+    position: sticky;
+    top: 0;
+    margin-left: auto;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: #173b35;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 5;
+}
+
+.popup-hero-form .hero-form-authorization {
+    margin-top: 16px;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.popup-hero-form .hero-form-authorization label {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.popup-hero-form .hero-form-authorization input {
+    margin-top: 3px;
+    flex-shrink: 0;
+}
+
+.popup-hero-form .hero-form-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 52px;
+    margin-top: 18px;
+    background: #173b35;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.popup-hero-form .hero-form-submit:hover {
+    background: #24564d;
+}
+
+.popup-hero-form .hero-form-note {
+    text-align: center;
+    color: #777;
+    font-size: 13px;
+    margin-top: 14px;
+}
+
+@keyframes enquiryPopup {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@media (max-width: 600px) {
+    .enquiry-overlay {
+        padding: 10px;
+    }
+
+    .enquiry-modal {
+        padding: 15px;
+        max-height: 94vh;
+    }
+
+    .popup-hero-form .hero-form-fields {
+        grid-template-columns: 1fr;
+    }
+
+    .popup-hero-form h2 {
+        font-size: 21px;
+    }
+}

@@ -57,7 +57,7 @@
 
     border-radius:40px;
 
-    background:rgba(255,255,255,.05);
+    background:#d8b14a;
 
     color:#D8B14A;
 
@@ -220,7 +220,7 @@
 
     background:#FFF8E7;
 
-    color:#163B6D;
+    color:#d8b14a;
 
     display:flex;
 
@@ -236,7 +236,7 @@
 
 .connect-card:hover .card-arrow{
 
-    background:#163B6D;
+    background:#d8b14a;
 
     color:#fff;
 
@@ -260,7 +260,7 @@
 
     border:2px solid #D8B14A;
 
-    color:#163B6D;
+    color:#d8b14a;
 
     display:flex;
 
@@ -278,7 +278,7 @@
 
 .connect-card:hover .connect-icon{
 
-    background:#163B6D;
+    background:#d8b14a;
 
     border-color:#163B6D;
 
