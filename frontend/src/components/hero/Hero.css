@@ -109,7 +109,7 @@
 }
 
 .hero-title span{
-    color:#8b4b37;
+    color:white;
 }
 
 .hero-description{
@@ -303,7 +303,7 @@
 .scroll-down{
 
     width:36px;
-    height:30px;
+    height:3px;
     bottom:15px;
 
 }
