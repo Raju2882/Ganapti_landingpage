@@ -94,15 +94,7 @@ export default function Footer() {
           <span>Call</span>
         </a>
 
-        <a
-          href={`https://wa.me/${phoneNumber}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="action-btn whatsapp-btn"
-        >
-          <FaWhatsapp />
-          <span>WhatsApp</span>
-        </a>
+       
 
         <a
           href="#enquiry"

@@ -34,16 +34,7 @@ export default function FloatingButtons() {
 
             </button>
 
-            <a
-                href="https://wa.me/919876543210"
-                target="_blank"
-                rel="noreferrer"
-                className="floating-whatsapp"
-            >
-
-                <FaWhatsapp />
-
-            </a>
+           
 
         </div>
 

@@ -44,11 +44,7 @@ export default function Hero() {
                             <span>In Doddaballapur</span>
                         </h1>
 
-                        <p className="hero-description">
-                            Discover your dream investment in North Bangalore.
-                            BMRDA Approved, Gated Community and a high-growth
-                            location designed for your future.
-                        </p>
+                       
 
                         {/* Project Highlights */}
                         <div className="hero-highlights">
@@ -79,7 +75,7 @@ export default function Hero() {
                         <div className="hero-buttons">
 
                             <a href="#contact" className="btn-primary">
-                                Book Site Visit
+                                Download Brochure
                             </a>
 
                             <a href="#contact" className="btn-secondary">
