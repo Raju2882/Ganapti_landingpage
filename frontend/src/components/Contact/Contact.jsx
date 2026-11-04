@@ -224,12 +224,15 @@ export default function Contact() {
 
         <div className="contact-map">
 
-          <iframe
-            title="Ashraya Location"
-            src="https://www.google.com/maps?q=Haliyal,Karnataka&output=embed"
-            loading="lazy"
-            allowFullScreen
-          ></iframe>
+         
+<iframe
+    title="Ashraya Aarika Location"
+    src="https://www.google.com/maps?q=13.292,77.543&z=14&output=embed"
+    loading="lazy"
+    allowFullScreen
+    referrerPolicy="no-referrer-when-downgrade"
+></iframe>
+
 
         </div>
 
