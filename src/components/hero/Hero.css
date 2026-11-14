@@ -167,10 +167,8 @@
 .hero-buttons {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 10px;
     flex-wrap: wrap;
-    width:100px;
-
 }
 
 .btn-primary,
@@ -881,4 +879,15 @@
         font-size: 13px;
     }
 
+}
+@media (max-width: 576px) {
+    .hero-buttons {
+        gap: 8px;
+    }
+
+    .hero-buttons .btn {
+        padding: 8px 14px;
+        font-size: 11px;
+        min-height: auto;
+    }
 }
