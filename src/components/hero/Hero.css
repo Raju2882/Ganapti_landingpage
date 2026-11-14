@@ -881,13 +881,15 @@
 
 }
 @media (max-width: 576px) {
-    .hero-buttons {
-        gap: 8px;
-    }
+  .hero-buttons {
+    width: 100%;
+  }
 
-    .hero-buttons .btn {
-        padding: 8px 14px;
-        font-size: 11px;
-        min-height: auto;
-    }
+  .hero-buttons .btn-primary {
+    display: inline-block !important;
+    width: auto !important;
+    min-width: 0 !important;
+    padding: 12px 24px !important;
+    flex: 0 0 auto !important;
+  }
 }

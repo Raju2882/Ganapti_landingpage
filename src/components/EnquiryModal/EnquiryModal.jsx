@@ -94,49 +94,10 @@ export default function EnquiryModal({ onClose }) {
                                 required
                             />
 
-                            <select
-                                name="state"
-                                value={formData.state}
-                                onChange={handleChange}
-                                required
-                            >
-                                <option value="">Select State *</option>
-                                <option value="Karnataka">Karnataka</option>
-                                <option value="Maharashtra">Maharashtra</option>
-                                <option value="Tamil Nadu">Tamil Nadu</option>
-                                <option value="Kerala">Kerala</option>
-                                <option value="Telangana">Telangana</option>
-                                <option value="Other">Other</option>
-                            </select>
+                            
 
-                            <select
-                                name="city"
-                                value={formData.city}
-                                onChange={handleChange}
-                                required
-                            >
-                                <option value="">Select City / District *</option>
-                                <option value="Bengaluru">Bengaluru</option>
-                                <option value="Doddaballapur">Doddaballapur</option>
-                                <option value="Yelahanka">Yelahanka</option>
-                                <option value="Devanahalli">Devanahalli</option>
-                                <option value="Other">Other</option>
-                            </select>
 
-                            <select
-                                name="project"
-                                value={formData.project}
-                                onChange={handleChange}
-                                required
-                            >
-                                <option value="">Project Interested In *</option>
-                                <option value="Abhivruddhi">Abhivruddhi</option>
-                                <option value="Samruddhi">Samruddhi</option>
-                                <option value="Unnati">Unnati</option>
-                                <option value="Maamara">Maamara</option>
-                                <option value="Eco Habitat">Eco Habitat</option>
-                                <option value="Sambhrambha">Sambhrambha</option>
-                            </select>
+                           
 
                             <select
                                 name="budget"
@@ -145,10 +106,12 @@ export default function EnquiryModal({ onClose }) {
                                 required
                             >
                                 <option value="">Select Your Budget *</option>
-                                <option value="28-40 Lakhs">INR 28 to 40 Lakhs</option>
-                                <option value="41-70 Lakhs">INR 41 to 70 Lakhs</option>
-                                <option value="71 Lakhs-1 Cr">INR 71 Lakhs to 1 Cr</option>
-                                <option value="1 Cr+">INR 1 Cr+</option>
+                                <option value="28-40 Lakhs">INR 45 Lakhs</option>
+                                <option value="41-70 Lakhs">INR 56 Lakhs</option>
+                                <option value="71 Lakhs-1 Cr">INR 65 to 75 Lacks</option>
+                                <option value="71 Lakhs-1 Cr">INR  Above 75 Lacks</option>
+
+            
                             </select>
 
                             <select
@@ -157,22 +120,21 @@ export default function EnquiryModal({ onClose }) {
                                 onChange={handleChange}
                                 required
                             >
-                                <option value="">Select Preferred Calling Slot *</option>
-                                <option value="As Soon As Possible">
-                                    As Soon As Possible
+                                <option value="">Preferred Site Visit? *</option>
+                                <option value="- Immediately">
+                                    Immediately
+                                    
                                 </option>
-                                <option value="Morning">
-                                    Morning (10 AM to 1 PM)
+                                <option value="This Weekend">
+                                   This Weekend
                                 </option>
-                                <option value="Afternoon">
-                                    Afternoon (1 PM to 4 PM)
+                                <option value="Next Weekend">
+                                    Next Weekend
                                 </option>
-                                <option value="Evening">
-                                    Evening (4 PM to 7 PM)
+                                <option value="Planning for Later">
+                                    Planning for Later
                                 </option>
-                                <option value="Late Evening">
-                                    Late Evening (Post 7 PM)
-                                </option>
+                              
                             </select>
 
                         </div>
