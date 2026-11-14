@@ -36,6 +36,7 @@
     height: 100%;
     object-fit: cover;
     object-position: center;
+    opacity: 0px;
 }
 
 /* Overlay */
@@ -166,8 +167,10 @@
 .hero-buttons {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 5px;
     flex-wrap: wrap;
+    width:100px;
+
 }
 
 .btn-primary,
