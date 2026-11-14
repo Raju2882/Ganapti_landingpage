@@ -9,6 +9,8 @@ import {
 } from "react-icons/fa";
 import { useState } from "react";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function EnquiryModal({ onClose }) {
     const [submitted, setSubmitted] = useState(false);
     const [otp, setOtp] = useState("");
@@ -54,6 +56,12 @@ export default function EnquiryModal({ onClose }) {
 
     // SEND OTP
     const handleSendOTP = async () => {
+        if (!API_URL) {
+            setOtpMessage("Backend URL is not configured.");
+            setOtpMessageType("error");
+            return;
+        }
+
         if (!/^[6-9]\d{9}$/.test(formData.phone)) {
             setOtpMessage("Enter a valid 10-digit mobile number.");
             setOtpMessageType("error");
@@ -65,25 +73,20 @@ export default function EnquiryModal({ onClose }) {
             setOtpMessage("");
             setOtp("");
 
-            const response = await fetch(
-                "http://localhost:5000/api/otp/send",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        phone: formData.phone
-                    })
-                }
-            );
+            const response = await fetch(`${API_URL}/api/otp/send`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    phone: formData.phone
+                })
+            });
 
             const data = await response.json();
 
             if (!response.ok || !data.success) {
-                throw new Error(
-                    data.message || "Unable to generate OTP."
-                );
+                throw new Error(data.message || "Unable to generate OTP.");
             }
 
             setOtpSent(true);
@@ -101,7 +104,7 @@ export default function EnquiryModal({ onClose }) {
             }
 
         } catch (error) {
-            setOtpMessage(error.message);
+            setOtpMessage(error.message || "Unable to send OTP.");
             setOtpMessageType("error");
         } finally {
             setLoading(false);
@@ -110,6 +113,12 @@ export default function EnquiryModal({ onClose }) {
 
     // VERIFY OTP
     const handleVerifyOTP = async () => {
+        if (!API_URL) {
+            setOtpMessage("Backend URL is not configured.");
+            setOtpMessageType("error");
+            return;
+        }
+
         if (!/^\d{6}$/.test(otp)) {
             setOtpMessage("Please enter a valid 6-digit OTP.");
             setOtpMessageType("error");
@@ -120,19 +129,16 @@ export default function EnquiryModal({ onClose }) {
             setLoading(true);
             setOtpMessage("");
 
-            const response = await fetch(
-                "http://localhost:5000/api/otp/verify",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        phone: formData.phone,
-                        otp: otp
-                    })
-                }
-            );
+            const response = await fetch(`${API_URL}/api/otp/verify`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    phone: formData.phone,
+                    otp: otp
+                })
+            });
 
             const data = await response.json();
 
@@ -143,14 +149,12 @@ export default function EnquiryModal({ onClose }) {
             }
 
             setVerified(true);
-            setOtpMessage(
-                "Mobile number verified successfully!"
-            );
+            setOtpMessage("Mobile number verified successfully!");
             setOtpMessageType("success");
 
         } catch (error) {
             setVerified(false);
-            setOtpMessage(error.message);
+            setOtpMessage(error.message || "OTP verification failed.");
             setOtpMessageType("error");
         } finally {
             setLoading(false);
@@ -163,46 +167,60 @@ export default function EnquiryModal({ onClose }) {
 
         if (!verified) {
             setOtpMessage("Please verify your mobile number first.");
+            setOtpMessageType("error");
+            return;
+        }
+
+        if (!formData.authorization) {
+            alert("Please accept the authorization.");
+            return;
+        }
+
+        if (!API_URL) {
+            alert("Backend URL is not configured.");
             return;
         }
 
         try {
             setLoading(true);
 
-            const response = await fetch(
-                "http://localhost:5000/api/leads/add",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(formData)
-                }
-            );
+            const response = await fetch(`${API_URL}/api/leads/add`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            });
 
             const data = await response.json();
 
             if (!response.ok || !data.success) {
-                throw new Error(data.message || "Failed to save enquiry");
+                throw new Error(
+                    data.message || "Failed to save enquiry."
+                );
             }
 
             console.log("Lead created:", data.leadId);
+
             setSubmitted(true);
 
         } catch (error) {
-            alert(error.message);
+            console.error("Enquiry submission error:", error);
+            alert(error.message || "Unable to submit enquiry. Please try again.");
         } finally {
             setLoading(false);
         }
     };
+
     return (
         <div
             className="enquiry-overlay"
             onClick={onClose}
         >
             <div
-                className={`enquiry-modal ${submitted ? "success-modal" : ""
-                    }`}
+                className={`enquiry-modal ${
+                    submitted ? "success-modal" : ""
+                }`}
                 onClick={(e) => e.stopPropagation()}
             >
 
@@ -265,8 +283,6 @@ export default function EnquiryModal({ onClose }) {
                                         style={{ width: "100%" }}
                                     />
 
-                                    {/* SEND OTP BUTTON */}
-
                                     {!verified && (
                                         <button
                                             type="button"
@@ -287,8 +303,6 @@ export default function EnquiryModal({ onClose }) {
                                                     : "Send OTP"}
                                         </button>
                                     )}
-
-                                    {/* OTP INPUT */}
 
                                     {otpSent && !verified && (
                                         <div style={{ marginTop: "10px" }}>
@@ -329,8 +343,6 @@ export default function EnquiryModal({ onClose }) {
                                         </div>
                                     )}
 
-                                    {/* VERIFICATION MESSAGE */}
-
                                     {otpMessage && (
                                         <p
                                             style={{
@@ -344,14 +356,10 @@ export default function EnquiryModal({ onClose }) {
                                                             : "#294b91"
                                             }}
                                         >
-                                            {verified && (
-                                                <FaCheck />
-                                            )}{" "}
+                                            {verified && <FaCheck />}{" "}
                                             {otpMessage}
                                         </p>
                                     )}
-
-                                    {/* VERIFIED MESSAGE */}
 
                                     {verified && (
                                         <p
@@ -444,7 +452,6 @@ export default function EnquiryModal({ onClose }) {
 
                             {/* SUBMIT BUTTON */}
 
-
                             <button
                                 type="submit"
                                 className="hero-form-submit"
@@ -455,7 +462,6 @@ export default function EnquiryModal({ onClose }) {
                                     ? "Submitting..."
                                     : "Book My Free Site Visit"}
                             </button>
-
 
                         </form>
 
