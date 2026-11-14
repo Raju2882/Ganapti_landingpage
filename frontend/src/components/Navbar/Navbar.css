@@ -7,15 +7,14 @@
    Navbar
 =========================== */
 
-.navbar{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    z-index:9999;
-    background:transparent;
-    box-shadow:none;
-    transition:all .35s ease;
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    background-color: #ffffff !important;
+    transition: all .35s ease;
 }
 
 .navbar.sticky{

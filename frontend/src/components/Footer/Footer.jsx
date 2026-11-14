@@ -61,7 +61,7 @@ export default function Footer() {
 
         <a href="tel:++91 99649 10330" className="action-btn call-btn">
           <FaPhoneAlt />
-          Call
+          Call Now
         </a>
 
         
@@ -71,7 +71,7 @@ export default function Footer() {
           className="action-btn enquire-btn"
           onClick={handleEnquiryClick}
         >
-          Enquire
+          Enquire Now
         </button>
 
       </div>

@@ -1,9 +1,23 @@
 
 import "./EnquiryModal.css";
-import { FaTimes, FaPhoneAlt } from "react-icons/fa";
+import {
+    FaTimes,
+    FaPhoneAlt,
+    FaCheck,
+    FaDownload,
+    FaWhatsapp
+} from "react-icons/fa";
 import { useState } from "react";
 
 export default function EnquiryModal({ onClose }) {
+    const [submitted, setSubmitted] = useState(false);
+    const [otp, setOtp] = useState("");
+    const [otpSent, setOtpSent] = useState(false);
+    const [verified, setVerified] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [otpMessage, setOtpMessage] = useState("");
+    const [otpMessageType, setOtpMessageType] = useState("info");
+
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -16,6 +30,12 @@ export default function EnquiryModal({ onClose }) {
         authorization: false
     });
 
+    const brochureUrl =
+        "https://ashrayaestates.com/wp-content/uploads/2025/12/Ashraya-Aarika-E-Brochure.pdf";
+
+    const whatsappUrl = "https://wa.me/919964910330";
+
+    // HANDLE FORM INPUTS
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
 
@@ -23,193 +43,474 @@ export default function EnquiryModal({ onClose }) {
             ...prev,
             [name]: type === "checkbox" ? checked : value
         }));
+
+        if (name === "phone") {
+            setVerified(false);
+            setOtpSent(false);
+            setOtp("");
+            setOtpMessage("");
+        }
     };
 
-    const handleSubmit = (e) => {
+    // SEND OTP
+    const handleSendOTP = async () => {
+        if (!/^[6-9]\d{9}$/.test(formData.phone)) {
+            setOtpMessage("Enter a valid 10-digit mobile number.");
+            setOtpMessageType("error");
+            return;
+        }
+
+        try {
+            setLoading(true);
+            setOtpMessage("");
+            setOtp("");
+
+            const response = await fetch(
+                "http://localhost:5000/api/otp/send",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        phone: formData.phone
+                    })
+                }
+            );
+
+            const data = await response.json();
+
+            if (!response.ok || !data.success) {
+                throw new Error(
+                    data.message || "Unable to generate OTP."
+                );
+            }
+
+            setOtpSent(true);
+
+            if (data.testOtp) {
+                setOtpMessage(
+                    `Your development OTP is: ${data.testOtp}`
+                );
+                setOtpMessageType("success");
+            } else {
+                setOtpMessage(
+                    data.message || "OTP generated successfully."
+                );
+                setOtpMessageType("info");
+            }
+
+        } catch (error) {
+            setOtpMessage(error.message);
+            setOtpMessageType("error");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // VERIFY OTP
+    const handleVerifyOTP = async () => {
+        if (!/^\d{6}$/.test(otp)) {
+            setOtpMessage("Please enter a valid 6-digit OTP.");
+            setOtpMessageType("error");
+            return;
+        }
+
+        try {
+            setLoading(true);
+            setOtpMessage("");
+
+            const response = await fetch(
+                "http://localhost:5000/api/otp/verify",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        phone: formData.phone,
+                        otp: otp
+                    })
+                }
+            );
+
+            const data = await response.json();
+
+            if (!response.ok || !data.success) {
+                throw new Error(
+                    data.message || "OTP verification failed."
+                );
+            }
+
+            setVerified(true);
+            setOtpMessage(
+                "Mobile number verified successfully!"
+            );
+            setOtpMessageType("success");
+
+        } catch (error) {
+            setVerified(false);
+            setOtpMessage(error.message);
+            setOtpMessageType("error");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // SUBMIT ENQUIRY
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        console.log("Enquiry submitted:", formData);
+        if (!verified) {
+            setOtpMessage("Please verify your mobile number first.");
+            return;
+        }
 
-        alert("Thank you! Our property consultant will contact you shortly.");
+        try {
+            setLoading(true);
 
-        onClose();
+            const response = await fetch(
+                "http://localhost:5000/api/leads/add",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(formData)
+                }
+            );
+
+            const data = await response.json();
+
+            if (!response.ok || !data.success) {
+                throw new Error(data.message || "Failed to save enquiry");
+            }
+
+            console.log("Lead created:", data.leadId);
+            setSubmitted(true);
+
+        } catch (error) {
+            alert(error.message);
+        } finally {
+            setLoading(false);
+        }
     };
-
     return (
-        <div className="enquiry-overlay" onClick={onClose}>
+        <div
+            className="enquiry-overlay"
+            onClick={onClose}
+        >
             <div
-                className="enquiry-modal"
+                className={`enquiry-modal ${submitted ? "success-modal" : ""
+                    }`}
                 onClick={(e) => e.stopPropagation()}
             >
+
                 <button
                     type="button"
                     className="modal-close"
                     onClick={onClose}
-                    aria-label="Close enquiry form"
+                    aria-label="Close"
                 >
                     <FaTimes />
                 </button>
 
-                <div className="hero-form-card popup-hero-form">
+                {!submitted ? (
 
-                    <h2>
-                        Connect With Our Property Experts
-                    </h2>
+                    <div className="hero-form-card popup-hero-form">
 
-                    <p className="form-subtitle">
-                        Get complete project details and site visit assistance.
-                    </p>
+                        <h2>
+                            Connect With Our Property Experts
+                        </h2>
 
-                    <form onSubmit={handleSubmit}>
+                        <p className="form-subtitle">
+                            Get complete project details and site visit assistance.
+                        </p>
 
-                        <div className="hero-form-fields">
+                        <form onSubmit={handleSubmit}>
 
-                            <input
-                                type="text"
-                                name="name"
-                                placeholder="Full Name *"
-                                aria-label="Full Name"
-                                value={formData.name}
-                                onChange={handleChange}
-                                required
-                            />
+                            <div className="hero-form-fields">
 
-                            <input
-                                type="email"
-                                name="email"
-                                placeholder="Email Address *"
-                                aria-label="Email Address"
-                                value={formData.email}
-                                onChange={handleChange}
-                                required
-                            />
-
-                            <input
-                                type="tel"
-                                name="phone"
-                                placeholder="Contact Number *"
-                                aria-label="Contact Number"
-                                value={formData.phone}
-                                onChange={handleChange}
-                                required
-                            />
-
-                            <select
-                                name="state"
-                                value={formData.state}
-                                onChange={handleChange}
-                                required
-                            >
-                                <option value="">Select State *</option>
-                                <option value="Karnataka">Karnataka</option>
-                                <option value="Maharashtra">Maharashtra</option>
-                                <option value="Tamil Nadu">Tamil Nadu</option>
-                                <option value="Kerala">Kerala</option>
-                                <option value="Telangana">Telangana</option>
-                                <option value="Other">Other</option>
-                            </select>
-
-                            <select
-                                name="city"
-                                value={formData.city}
-                                onChange={handleChange}
-                                required
-                            >
-                                <option value="">Select City / District *</option>
-                                <option value="Bengaluru">Bengaluru</option>
-                                <option value="Doddaballapur">Doddaballapur</option>
-                                <option value="Yelahanka">Yelahanka</option>
-                                <option value="Devanahalli">Devanahalli</option>
-                                <option value="Other">Other</option>
-                            </select>
-
-                            <select
-                                name="project"
-                                value={formData.project}
-                                onChange={handleChange}
-                                required
-                            >
-                                <option value="">Project Interested In *</option>
-                                <option value="Abhivruddhi">Abhivruddhi</option>
-                                <option value="Samruddhi">Samruddhi</option>
-                                <option value="Unnati">Unnati</option>
-                                <option value="Maamara">Maamara</option>
-                                <option value="Eco Habitat">Eco Habitat</option>
-                                <option value="Sambhrambha">Sambhrambha</option>
-                            </select>
-
-                            <select
-                                name="budget"
-                                value={formData.budget}
-                                onChange={handleChange}
-                                required
-                            >
-                                <option value="">Select Your Budget *</option>
-                                <option value="28-40 Lakhs">INR 28 to 40 Lakhs</option>
-                                <option value="41-70 Lakhs">INR 41 to 70 Lakhs</option>
-                                <option value="71 Lakhs-1 Cr">INR 71 Lakhs to 1 Cr</option>
-                                <option value="1 Cr+">INR 1 Cr+</option>
-                            </select>
-
-                            <select
-                                name="callingSlot"
-                                value={formData.callingSlot}
-                                onChange={handleChange}
-                                required
-                            >
-                                <option value="">Select Preferred Calling Slot *</option>
-                                <option value="As Soon As Possible">
-                                    As Soon As Possible
-                                </option>
-                                <option value="Morning">
-                                    Morning (10 AM to 1 PM)
-                                </option>
-                                <option value="Afternoon">
-                                    Afternoon (1 PM to 4 PM)
-                                </option>
-                                <option value="Evening">
-                                    Evening (4 PM to 7 PM)
-                                </option>
-                                <option value="Late Evening">
-                                    Late Evening (Post 7 PM)
-                                </option>
-                            </select>
-
-                        </div>
-
-                        <div className="hero-form-authorization">
-                            <label>
                                 <input
-                                    type="checkbox"
-                                    name="authorization"
-                                    checked={formData.authorization}
+                                    type="text"
+                                    name="name"
+                                    placeholder="Full Name *"
+                                    value={formData.name}
                                     onChange={handleChange}
                                     required
                                 />
 
-                                <span>
-                                    I authorize Ashraya Estates and its representatives
-                                    to contact me with updates and notifications via
-                                    Email, SMS, WhatsApp or Call. This will override DND/NDNC.
-                                </span>
-                            </label>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    placeholder="Email Address *"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    required
+                                />
+
+                                {/* PHONE AND OTP SECTION */}
+
+                                <div>
+
+                                    <input
+                                        type="tel"
+                                        name="phone"
+                                        placeholder="Contact Number *"
+                                        value={formData.phone}
+                                        onChange={handleChange}
+                                        maxLength={10}
+                                        required
+                                        disabled={verified}
+                                        style={{ width: "100%" }}
+                                    />
+
+                                    {/* SEND OTP BUTTON */}
+
+                                    {!verified && (
+                                        <button
+                                            type="button"
+                                            onClick={handleSendOTP}
+                                            disabled={loading}
+                                            style={{
+                                                marginTop: "8px",
+                                                padding: "9px 15px",
+                                                cursor: loading
+                                                    ? "not-allowed"
+                                                    : "pointer"
+                                            }}
+                                        >
+                                            {loading
+                                                ? "Please wait..."
+                                                : otpSent
+                                                    ? "Resend OTP"
+                                                    : "Send OTP"}
+                                        </button>
+                                    )}
+
+                                    {/* OTP INPUT */}
+
+                                    {otpSent && !verified && (
+                                        <div style={{ marginTop: "10px" }}>
+
+                                            <input
+                                                type="text"
+                                                placeholder="Enter 6-digit OTP"
+                                                value={otp}
+                                                onChange={(e) =>
+                                                    setOtp(
+                                                        e.target.value
+                                                            .replace(/\D/g, "")
+                                                            .slice(0, 6)
+                                                    )
+                                                }
+                                                maxLength={6}
+                                                inputMode="numeric"
+                                                style={{ width: "100%" }}
+                                            />
+
+                                            <button
+                                                type="button"
+                                                onClick={handleVerifyOTP}
+                                                disabled={loading}
+                                                style={{
+                                                    marginTop: "8px",
+                                                    padding: "9px 15px",
+                                                    cursor: loading
+                                                        ? "not-allowed"
+                                                        : "pointer"
+                                                }}
+                                            >
+                                                {loading
+                                                    ? "Verifying..."
+                                                    : "Verify OTP"}
+                                            </button>
+
+                                        </div>
+                                    )}
+
+                                    {/* VERIFICATION MESSAGE */}
+
+                                    {otpMessage && (
+                                        <p
+                                            style={{
+                                                marginTop: "10px",
+                                                fontSize: "13px",
+                                                color:
+                                                    otpMessageType === "success"
+                                                        ? "green"
+                                                        : otpMessageType === "error"
+                                                            ? "red"
+                                                            : "#294b91"
+                                            }}
+                                        >
+                                            {verified && (
+                                                <FaCheck />
+                                            )}{" "}
+                                            {otpMessage}
+                                        </p>
+                                    )}
+
+                                    {/* VERIFIED MESSAGE */}
+
+                                    {verified && (
+                                        <p
+                                            style={{
+                                                color: "green",
+                                                marginTop: "8px"
+                                            }}
+                                        >
+                                            <FaCheck /> Mobile number verified
+                                        </p>
+                                    )}
+
+                                </div>
+
+                                {/* BUDGET */}
+
+                                <select
+                                    name="budget"
+                                    value={formData.budget}
+                                    onChange={handleChange}
+                                    required
+                                >
+                                    <option value="">
+                                        Select Your Budget *
+                                    </option>
+                                    <option value="INR 45 Lakhs">
+                                        INR 45 Lakhs
+                                    </option>
+                                    <option value="INR 56 Lakhs">
+                                        INR 56 Lakhs
+                                    </option>
+                                    <option value="INR 65 to 75 Lakhs">
+                                        INR 65 to 75 Lakhs
+                                    </option>
+                                    <option value="Above 75 Lakhs">
+                                        Above 75 Lakhs
+                                    </option>
+                                </select>
+
+                                {/* SITE VISIT */}
+
+                                <select
+                                    name="callingSlot"
+                                    value={formData.callingSlot}
+                                    onChange={handleChange}
+                                    required
+                                >
+                                    <option value="">
+                                        Preferred Site Visit? *
+                                    </option>
+                                    <option value="Immediately">
+                                        Immediately
+                                    </option>
+                                    <option value="This Weekend">
+                                        This Weekend
+                                    </option>
+                                    <option value="Next Weekend">
+                                        Next Weekend
+                                    </option>
+                                    <option value="Planning for Later">
+                                        Planning for Later
+                                    </option>
+                                </select>
+
+                            </div>
+
+                            {/* AUTHORIZATION */}
+
+                            <div className="hero-form-authorization">
+
+                                <label>
+
+                                    <input
+                                        type="checkbox"
+                                        name="authorization"
+                                        checked={formData.authorization}
+                                        onChange={handleChange}
+                                        required
+                                    />
+
+                                    <span>
+                                        I authorize Ashraya Estates and its representatives
+                                        to contact me with updates and notifications via
+                                        Email, SMS, WhatsApp or Call. This will override DND/NDNC.
+                                    </span>
+
+                                </label>
+
+                            </div>
+
+                            {/* SUBMIT BUTTON */}
+
+
+                            <button
+                                type="submit"
+                                className="hero-form-submit"
+                                disabled={!verified || loading}
+                            >
+                                <FaPhoneAlt />
+                                {loading
+                                    ? "Submitting..."
+                                    : "Book My Free Site Visit"}
+                            </button>
+
+
+                        </form>
+
+                        <p className="hero-form-note">
+                            Our property consultant will assist you shortly.
+                        </p>
+
+                    </div>
+
+                ) : (
+
+                    /* SUCCESS SCREEN */
+
+                    <div className="enquiry-success">
+
+                        <div className="success-check">
+                            <FaCheck />
                         </div>
 
-                        <button
-                            type="submit"
-                            className="hero-form-submit"
+                        <h2>Submission Successful!</h2>
+
+                        <h3>
+                            Thank You for Connecting with Ashraya Estates
+                        </h3>
+
+                        <p>
+                            Our property experts will get in touch with you
+                            shortly to guide you on your journey to finding
+                            your dream plot.
+                        </p>
+
+                        <a
+                            href={brochureUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="success-download"
                         >
-                            <FaPhoneAlt />
-                            Book My Free Site Visit
-                        </button>
+                            <FaDownload />
+                            Download Brochure PDF
+                        </a>
 
-                    </form>
+                        <a
+                            href={whatsappUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="success-whatsapp"
+                        >
+                            <FaWhatsapp />
+                            Live Chat On WhatsApp
+                        </a>
 
-                    <p className="hero-form-note">
-                        Our property consultant will assist you shortly.
-                    </p>
+                    </div>
 
-                </div>
+                )}
+
             </div>
         </div>
     );
