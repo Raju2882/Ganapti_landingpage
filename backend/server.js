@@ -6,10 +6,15 @@ require("dotenv").config();
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
+}));
+
 app.use(express.json());
 
-// Leads API - OTP not required
+// Leads API
 app.use("/api/leads", require("./routes/leadRoutes"));
 
 // Home route
@@ -20,9 +25,14 @@ app.get("/", (req, res) => {
     });
 });
 
-// Start server
-const PORT = process.env.PORT || 5000;
+// Export Express app for Vercel
+module.exports = app;
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+// Local development
+if (require.main === module) {
+    const PORT = process.env.PORT || 5000;
+
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+    });
+}
