@@ -151,7 +151,7 @@ export default function Contact() {
               </div>
 
               <a
-                href="https://share.google/DDcKRWYWioJNJGk4i"
+                href="https://maps.app.goo.gl/fqLXM7iNoxEzUEZ26?g_st=iw"
                 target="_blank"
                 rel="noreferrer"
               >
