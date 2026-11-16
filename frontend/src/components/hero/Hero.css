@@ -194,7 +194,7 @@
     border: 1px solid #894b3c;
 }
 .btn-primary:hover {
-    background: #233b80;
+    background: #894b3c;
     color: #fff;
     transform: translateY(-3px);
 }

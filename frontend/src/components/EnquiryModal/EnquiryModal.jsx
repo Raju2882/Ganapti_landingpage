@@ -342,9 +342,7 @@ export default function EnquiryModal({ onClose }) {
                             your dream plot.
                         </p>
 
-                        <p>
-                            Redirecting you to Google Sheets...
-                        </p>
+                     
 
                         <a
                             href={brochureUrl}

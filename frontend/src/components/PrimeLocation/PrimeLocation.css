@@ -20,10 +20,10 @@
 
 .prime-heading h2{
     margin:0;
-    font-family:'Cormorant Garamond', serif;
+    font-family:outfit, serif;
     font-size:64px;
-    font-weight:700;
-    color:#17345f;
+    font-weight:500;
+    color:black;
     line-height:1.1;
 }
 

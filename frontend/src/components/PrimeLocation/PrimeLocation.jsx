@@ -2,6 +2,7 @@ import "./PrimeLocation.css";
 
 export default function PrimeLocation() {
     return (
+        <section id="PrimeLocation">
         <section className="prime-location">
 
             <div className="container-custom">
@@ -19,7 +20,7 @@ export default function PrimeLocation() {
                 </div>
 
             </div>
-
+        </section>
         </section>
     );
 }

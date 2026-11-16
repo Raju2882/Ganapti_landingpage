@@ -11,6 +11,7 @@ import {
 
 export default function Contact() {
   return (
+  <section id="contact">
     <section className="contact-section" id="contact">
 
       <div className="contact-container">
@@ -70,8 +71,8 @@ export default function Contact() {
 
               <div>
                 <h4>Call Us</h4>
-                <p>+91 99649 10330</p>
-                <a href="tel:+919964910330">
+                <p>+91 7541014101</p>
+                <a href="tel:+917541014101">
                   Call Now <FaArrowRight />
                 </a>
               </div>
@@ -164,6 +165,7 @@ export default function Contact() {
 
       </div>
 
+    </section>
     </section>
   );
 }

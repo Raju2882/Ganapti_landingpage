@@ -14,6 +14,7 @@ export default function Footer() {
   };
 
   return (
+    <section id="footer">
     <footer className="footer" id="contact">
 
       <div className="footer-container">
@@ -77,5 +78,6 @@ export default function Footer() {
       </div>
 
     </footer>
+    </section>
   );
 }

@@ -16,7 +16,7 @@ export default function Lifestyle() {
     ];
 
     return (
-
+    <section id="lifeStyle">
         <section className="lifestyle" id="lifestyle">
 
             <div className="container-custom">
@@ -130,6 +130,7 @@ export default function Lifestyle() {
 
             </div>
 
+        </section>
         </section>
 
     );
