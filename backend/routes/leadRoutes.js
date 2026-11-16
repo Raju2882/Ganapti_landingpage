@@ -1,11 +1,7 @@
+
 const express = require("express");
-const ExcelJS = require("exceljs");
-const fs = require("fs");
-const path = require("path");
 
 const router = express.Router();
-
-const filePath = path.join(__dirname, "../Leads.xlsx");
 
 router.post("/add", async (req, res) => {
     try {
@@ -14,10 +10,10 @@ router.post("/add", async (req, res) => {
             email,
             phone,
             budget,
-            callingSlot,
-            authorization
+            callingSlot
         } = req.body;
 
+        // Validate required fields
         if (!name || !email || !phone || !budget || !callingSlot) {
             return res.status(400).json({
                 success: false,
@@ -25,62 +21,70 @@ router.post("/add", async (req, res) => {
             });
         }
 
-        const workbook = new ExcelJS.Workbook();
-
-        if (fs.existsSync(filePath)) {
-            await workbook.xlsx.readFile(filePath);
+        // Validate phone number
+        if (!/^[6-9]\d{9}$/.test(String(phone))) {
+            return res.status(400).json({
+                success: false,
+                message: "Enter a valid 10-digit mobile number."
+            });
         }
 
-        let worksheet = workbook.getWorksheet("Leads");
+        const scriptUrl = process.env.GOOGLE_SCRIPT_URL;
 
-        if (!worksheet) {
-            worksheet = workbook.addWorksheet("Leads");
-
-            worksheet.columns = [
-                { header: "Lead ID", key: "id", width: 15 },
-                { header: "Name", key: "name", width: 25 },
-                { header: "Email", key: "email", width: 30 },
-                { header: "Phone", key: "phone", width: 18 },
-                { header: "Budget", key: "budget", width: 22 },
-                { header: "Site Visit", key: "callingSlot", width: 22 },
-                { header: "Source", key: "source", width: 20 },
-                { header: "Status", key: "status", width: 15 },
-                { header: "Authorization", key: "authorization", width: 18 },
-                { header: "Created At", key: "createdAt", width: 25 }
-            ];
-
-            worksheet.getRow(1).font = { bold: true };
+        if (!scriptUrl) {
+            return res.status(500).json({
+                success: false,
+                message: "Google Sheets URL is not configured."
+            });
         }
 
-        const leadId = `LEAD-${Date.now()}`;
-
-        worksheet.addRow({
-            id: leadId,
-            name,
-            email,
-            phone,
-            budget,
-            callingSlot,
-            source: "Website Enquiry",
-            status: "New",
-            authorization: authorization ? "Yes" : "No",
-            createdAt: new Date().toLocaleString("en-IN")
+        // Send enquiry to Google Sheets
+        const googleResponse = await fetch(scriptUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name,
+                email,
+                phone,
+                budget,
+                callingSlot
+            })
         });
 
-        await workbook.xlsx.writeFile(filePath);
+        const responseText = await googleResponse.text();
 
-        res.status(201).json({
+        let result;
+
+        try {
+            result = JSON.parse(responseText);
+        } catch {
+            throw new Error(
+                "Google Sheets returned an invalid response."
+            );
+        }
+
+        if (!googleResponse.ok || !result.success) {
+            throw new Error(
+                result.message || "Failed to save enquiry in Google Sheets."
+            );
+        }
+
+        console.log("Google Sheet enquiry saved:", name);
+
+        return res.status(201).json({
             success: true,
-            message: "Lead saved successfully!",
-            leadId
+            message: "Enquiry saved successfully in Google Sheets!",
+            leadId: result.leadId
         });
 
     } catch (error) {
-        console.error("Excel Error:", error);
+        console.error("Google Sheets Error:", error);
 
-        res.status(500).json({
+        return res.status(500).json({
             success: false,
-            message: "Unable to save lead."
+            message: error.message || "Unable to save enquiry."
         });
     }
 });

@@ -1,7 +1,9 @@
 /* ==========================================
    Lifestyle Section
 ========================================== */
-
+*{
+    font-family: outfit, sans-serif !important;
+}
 .lifestyle{
     padding:80px 0;
     background:#F8FAFC;

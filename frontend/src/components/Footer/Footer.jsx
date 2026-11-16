@@ -59,7 +59,7 @@ export default function Footer() {
       {/* Mobile Sticky Action Bar */}
       <div className="footer-action-bar">
 
-        <a href="tel:++91 99649 10330" className="action-btn call-btn">
+        <a href="tel:++91 7541014101" className="action-btn call-btn">
           <FaPhoneAlt />
           Call Now
         </a>

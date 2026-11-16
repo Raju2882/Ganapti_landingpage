@@ -50,9 +50,9 @@ export default function Hero() {
                         </span>
 
                         <h1 className="hero-title">
-                            Premium Plots
+                            Premium Plots In
                             <br />
-                            <span>In Doddaballapur</span>
+                            <span> Doddaballapur</span>
                         </h1>
 
                         <div className="hero-highlights">

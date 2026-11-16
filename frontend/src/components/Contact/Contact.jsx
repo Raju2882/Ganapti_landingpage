@@ -117,7 +117,7 @@ export default function Contact() {
           <div className="contact-bottom">
             <p>Have questions about our properties?</p>
 
-            <a href="tel:+919964910330">
+            <a href="tel:+91 7541014101">
               Connect With Us <FaArrowRight />
             </a>
           </div>
@@ -150,7 +150,7 @@ export default function Contact() {
               </div>
 
               <a
-                href="https://www.google.com/maps?q=13.292,77.543"
+                href="https://share.google/DDcKRWYWioJNJGk4i"
                 target="_blank"
                 rel="noreferrer"
               >
