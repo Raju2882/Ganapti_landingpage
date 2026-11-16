@@ -74,8 +74,8 @@
 }
 
 .footer-social a:hover {
-  background: #d8b14a;
-  border-color: #d8b14a;
+  background: #894b3c;
+  border-color: #894b3c;
   color: #173b35;
   transform: translateY(-5px);
 }
@@ -211,9 +211,9 @@
   /* Enquire */
 
   .enquire-btn {
-    background: #d8b14a;
+    background: #894b3c;
     color: #173b35;
-    border: 1px solid #d8b14a;
+    border: 1px solid #894b3c;
   }
 
   .action-btn:active {

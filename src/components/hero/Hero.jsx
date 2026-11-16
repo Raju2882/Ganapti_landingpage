@@ -80,9 +80,13 @@ export default function Hero() {
                         </div>
 
                         <div className="hero-buttons">
-                            <a href="https://ashrayaestates.com/wp-content/uploads/2025/12/Ashraya-Aarika-E-Brochure.pdf" className="btn-primary">
+                            <button
+                                type="button"
+                                className="btn-primary"
+                                onClick={() => setOpenModal(true)}
+                            >
                                 Download Brochure
-                            </a>
+                            </button>
                         </div>
 
                         <div className="hero-bottom-message">
