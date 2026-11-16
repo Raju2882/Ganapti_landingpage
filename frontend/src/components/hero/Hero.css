@@ -21,6 +21,7 @@
     align-items: stretch;
     overflow: hidden;
     background:#78534a;
+    margin-top:0px;
 }
 
 /* Background */
@@ -105,7 +106,7 @@
 
 .hero-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(55px, 6vw, 82px);
+    font-size: clamp(40px, 5vw, 70px);
     font-weight: 700;
     line-height: 0.98;
     color: #fff;
@@ -181,7 +182,7 @@
     justify-content: center;
 
     text-decoration: none;
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 600;
     border-radius: 8px;
 

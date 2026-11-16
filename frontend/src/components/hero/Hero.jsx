@@ -52,7 +52,7 @@ export default function Hero() {
                         <h1 className="hero-title">
                             Premium Plots In
                             <br />
-                            <span> Doddaballapur</span>
+                            <span className="hero-title"> Doddaballapur</span>
                         </h1>
 
                         <div className="hero-highlights">
@@ -99,7 +99,7 @@ export default function Hero() {
                     <div className="hero-form-card">
 
                         <h2>
-                           Find Your Perfect Plot at Aarika
+                         Your Dream Plot at Aarika
                         </h2>
 
                         <p className="form-subtitle">
@@ -111,7 +111,7 @@ export default function Hero() {
                             className="hero-form-submit"
                             onClick={() => setOpenModal(true)}
                         >
-                            <FaPhoneAlt />
+                           
                             Enquire Now
                         </button>
 

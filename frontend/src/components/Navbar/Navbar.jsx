@@ -68,7 +68,7 @@ export default function Navbar() {
           {/* Right */}
           <div className="navbar-right">
 
-            <a href="tel:+919964910330" className="phone-box">
+            <a href="tel:+91 7541014101" className="phone-box">
               <div className="phone-icon">
                 <FaPhoneAlt />
               </div>
