@@ -99,7 +99,7 @@ export default function Hero() {
                     <div className="hero-form-card">
 
                         <h2>
-                            Interested in Our Premium Plots?
+                           Find Your Perfect Plot at Aarika
                         </h2>
 
                         <p className="form-subtitle">

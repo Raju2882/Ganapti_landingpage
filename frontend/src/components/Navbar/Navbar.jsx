@@ -42,10 +42,10 @@ export default function Navbar() {
     { label: "Pime Location", id: "PrimeLocation" },
     { label:"ProjectHighlights",id:"ProjectHigh"},
     { label: "Amenities", id: "amenities" },
-    { label: "LifeStyle", id: "lifeStyle" },
+
     
     { label: "Contact", id: "contact" },
-    { label: "Footer", id: "footer" },
+
   ];
 
   return (
