@@ -106,10 +106,7 @@ export default function EnquiryModal({ onClose }) {
             // SHOW SUCCESS SCREEN
             setSubmitted(true);
 
-            // REDIRECT TO GOOGLE SHEET
-            setTimeout(() => {
-                window.location.assign(GOOGLE_SHEET_URL);
-            }, 2000);
+            
 
         } catch (error) {
 
