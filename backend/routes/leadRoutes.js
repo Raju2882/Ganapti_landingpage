@@ -1,6 +1,5 @@
 
 const express = require("express");
-
 const router = express.Router();
 
 router.post("/add", async (req, res) => {
@@ -9,19 +8,30 @@ router.post("/add", async (req, res) => {
             name,
             email,
             phone,
+            state,
+            city,
+            project,
             budget,
-            callingSlot
+            callingSlot,
+            authorization
         } = req.body;
 
         // Validate required fields
-        if (!name || !email || !phone || !budget || !callingSlot) {
+        if (
+            !name ||
+            !email ||
+            !phone ||
+            !budget ||
+            !callingSlot ||
+            !authorization
+        ) {
             return res.status(400).json({
                 success: false,
                 message: "Please provide all required details."
             });
         }
 
-        // Validate phone number
+        // Validate phone
         if (!/^[6-9]\d{9}$/.test(String(phone))) {
             return res.status(400).json({
                 success: false,
@@ -38,7 +48,7 @@ router.post("/add", async (req, res) => {
             });
         }
 
-        // Send enquiry to Google Sheets
+        // Send all enquiry details to Google Sheets
         const googleResponse = await fetch(scriptUrl, {
             method: "POST",
             headers: {
@@ -48,8 +58,12 @@ router.post("/add", async (req, res) => {
                 name,
                 email,
                 phone,
+                state,
+                city,
+                project,
                 budget,
-                callingSlot
+                callingSlot,
+                authorization
             })
         });
 
@@ -67,20 +81,20 @@ router.post("/add", async (req, res) => {
 
         if (!googleResponse.ok || !result.success) {
             throw new Error(
-                result.message || "Failed to save enquiry in Google Sheets."
+                result.message || "Failed to save enquiry."
             );
         }
 
-        console.log("Google Sheet enquiry saved:", name);
+        console.log("Enquiry saved:", name);
 
         return res.status(201).json({
             success: true,
-            message: "Enquiry saved successfully in Google Sheets!",
+            message: "Enquiry saved successfully!",
             leadId: result.leadId
         });
 
     } catch (error) {
-        console.error("Google Sheets Error:", error);
+        console.error("Lead submission error:", error);
 
         return res.status(500).json({
             success: false,
