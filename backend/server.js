@@ -9,6 +9,7 @@ const app = express();
 const allowedOrigins = [
     "http://localhost:5173",
     "http://localhost:5174",
+    "https://ganapti-landingpage-xa7f.vercel.app",
     "https://ganapti-frontend.vercel.app"
 ];
 
