@@ -1,4 +1,5 @@
 
+
 /* =================================
    GLOBAL RESET
 ================================= */
@@ -8,6 +9,14 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Outfit', sans-serif;
+
+/* Google Fonts */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Outfit, sans-serifim !important;
 }
 
 html {
@@ -159,4 +168,4 @@ select {
   .section-subtitle {
     font-size: 15px;
   }
-}
+}}

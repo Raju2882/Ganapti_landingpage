@@ -73,10 +73,18 @@ export default function Navbar() {
 
               <div>
                 <small>Call Us</small>
+<<<<<<< HEAD
+=======
+                <h4>+91 99649 10330</h4>
+>>>>>>> 98c12fc7acb968bd86c0bc5597b79c47455b9dcc
 
 
                 <h4>+91 75410 14101</h4>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 98c12fc7acb968bd86c0bc5597b79c47455b9dcc
               </div>
             </a>
 

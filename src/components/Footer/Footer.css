@@ -205,6 +205,7 @@
     color: black;
 
     color:#ffffff;
+    
 
     border: 1px solid #173b35;
   }
@@ -216,9 +217,20 @@
   /* Enquire */
 
   .enquire-btn {
-    background: #d8b14a;
+
+    background:#894b3c;
     color: white ;
     border: 1px solid #d8b14a;
+
+    background: #894b3c;
+    color: white;
+    border: 1px solid #894b3c;
+
+    background: #894b3c;
+    color: white ;
+    border: 1px solid#894b3c;
+
+
   }
 
   .action-btn:active {

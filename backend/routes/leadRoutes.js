@@ -1,6 +1,9 @@
 
 const express = require("express");
 const router = express.Router();
+const crypto = require("crypto");
+
+const { sendLeadToMeta } = require("../services/metaConversions");
 
 router.post("/add", async (req, res) => {
     try {
@@ -48,7 +51,7 @@ router.post("/add", async (req, res) => {
             });
         }
 
-        // Send all enquiry details to Google Sheets
+        // STEP 1: Save enquiry to Google Sheets
         const googleResponse = await fetch(scriptUrl, {
             method: "POST",
             headers: {
@@ -87,6 +90,27 @@ router.post("/add", async (req, res) => {
 
         console.log("Enquiry saved:", name);
 
+        // STEP 2: Send Lead event to Meta CAPI
+        try {
+            const eventId = crypto.randomUUID();
+
+            const metaResult = await sendLeadToMeta({
+                email,
+                phone,
+                eventId
+            });
+
+            console.log("Meta Lead event sent:", metaResult);
+
+        } catch (metaError) {
+            // Do not fail enquiry if Meta is unavailable
+            console.error(
+                "Meta CAPI Error:",
+                metaError.message
+            );
+        }
+
+        // STEP 3: Return success to frontend
         return res.status(201).json({
             success: true,
             message: "Enquiry saved successfully!",
