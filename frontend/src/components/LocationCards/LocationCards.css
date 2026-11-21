@@ -1,0 +1,287 @@
+
+/* =====================================
+   LOCATION CARDS SECTION
+===================================== */
+
+.location-cards {
+    width: 100%;
+    padding: 65px 0 85px;
+    background: #F8F9FB;
+}
+
+.location-container {
+    width: 100%;
+    max-width: 1380px;
+    margin: auto;
+    padding: 0 25px;
+}
+
+/* =====================================
+   SECTION HEADING
+===================================== */
+
+.location-heading {
+    text-align: center;
+    margin-bottom: 50px;
+    font-family:  outfit,serif;
+    font-size:64px;
+    font-weight:500;
+    color:black;
+    line-height:1.1;
+}
+
+.location-heading h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 34px;
+    font-weight: 700;
+    color: #172033;
+    margin-bottom: 12px;
+}
+
+.location-heading p {
+    font-size: 15px;
+    color: #6C757D;
+    line-height: 1.7;
+    max-width: 650px;
+    margin: auto;
+}
+
+/* =====================================
+   GRID
+===================================== */
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 35px;
+}
+
+/* =====================================
+   LOCATION CARD
+===================================== */
+
+.location-card {
+    min-height: 215px;
+    padding: 26px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+
+    border: 1px solid transparent;
+    border-radius: 17px;
+
+    text-align: left;
+    cursor: pointer;
+
+    transition: all 0.35s ease;
+}
+
+.location-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 25px rgba(22, 59, 109, 0.09);
+}
+
+/* =====================================
+   CARD HEADER
+===================================== */
+
+.location-card-header {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 18px;
+}
+
+/* =====================================
+   ICON
+===================================== */
+
+.card-icon {
+    width: 54px;
+    min-width: 54px;
+    height: 54px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #FFFFFF;
+    border-radius: 14px;
+
+    color:#894b3c;
+    font-size: 25px;
+
+    border: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+
+    transition: 0.3s;
+}
+
+.location-card:hover .card-icon {
+    background:#894b3c;
+    color: #FFFFFF;
+}
+
+/* =====================================
+   TITLE
+===================================== */
+
+.location-card h3 {
+    margin: 0;
+
+    font-family: 'Poppins', sans-serif;
+    font-size: 19px;
+
+    color: #172033;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+/* =====================================
+   DESCRIPTION
+===================================== */
+
+.location-card p {
+    margin: 0;
+
+    color: #566174;
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.7;
+}
+
+/* =====================================
+   PASTEL COLORS
+===================================== */
+
+.card-green {
+    background: #EEEEE7;
+    border-color: #DEDFCA;
+}
+
+.card-peach {
+    background: #FBEAE3;
+    border-color: #FFD1BD;
+}
+
+.card-yellow {
+    background: #FAF1E4;
+    border-color: #F8DDBA;
+}
+
+.card-pink {
+    background: #F5E7E7;
+    border-color: #F4CACA;
+}
+
+.card-lightgreen {
+    background: #EDF1DF;
+    border-color: #D3E0AE;
+}
+
+.card-purple {
+    background: #E7E5ED;
+    border-color: #C9C0DC;
+}
+
+/* =====================================
+   TABLET
+===================================== */
+
+@media (max-width: 992px) {
+
+    .location-cards {
+        padding: 55px 0 65px;
+    }
+
+    .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 22px;
+    }
+
+    .location-card {
+        min-height: 190px;
+        padding: 23px;
+    }
+
+    .location-heading h2 {
+        font-size: 30px;
+    }
+
+    .location-card h3 {
+        font-size: 17px;
+    }
+
+    .location-card p {
+        font-size: 14px;
+    }
+
+}
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media (max-width: 576px) {
+
+    .location-cards {
+        padding: 45px 0 55px;
+    }
+
+    .location-container {
+        padding: 0 15px;
+    }
+
+    .location-heading {
+        margin-bottom: 28px;
+    }
+
+    .location-heading h2 {
+        font-size: 24px;
+    }
+
+    .location-heading p {
+        font-size: 12px;
+    }
+
+    .cards-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .location-card {
+        min-height: 165px;
+        padding: 15px 12px;
+        border-radius: 13px;
+    }
+
+    .location-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+    .card-icon {
+        width: 40px;
+        min-width: 40px;
+        height: 40px;
+        font-size: 19px;
+        border-radius: 10px;
+    }
+
+    .location-card h3 {
+        font-size: 14px;
+        line-height: 1.35;
+    }
+
+    .location-card p {
+        font-size: 11px;
+        line-height: 1.5;
+    }
+
+}

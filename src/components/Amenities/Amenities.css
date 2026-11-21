@@ -2,7 +2,9 @@
 /* =====================================
    AMENITIES SECTION
 ===================================== */
-
+*{
+    font-family: outfit, sans-serif !important;
+}
 .amenities {
     width: 100%;
     padding: 45px 25px 65px;
