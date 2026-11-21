@@ -4,7 +4,7 @@
 ===================================== */
 
 .footer {
-  background: #173b35;
+  background: #894b3c;
   padding: 65px 20px 25px;
   text-align: center;
   position: relative;
@@ -74,8 +74,8 @@
 }
 
 .footer-social a:hover {
-  background: #d8b14a;
-  border-color: #d8b14a;
+  background: #894b3c;
+  border-color: #894b3c;
   color: #173b35;
   transform: translateY(-5px);
 }
@@ -190,6 +190,7 @@
     font-size: 13px;
     font-weight: 600;
     transition: all 0.25s ease;
+    color:#ffffff;
   }
 
   .action-btn svg {
@@ -200,7 +201,11 @@
 
   .call-btn {
     background: #ffffff;
+<<<<<<< HEAD
+    color: black;
+=======
     color:#ffffff;
+>>>>>>> 450f4b3978a797059e69b91a714ba8e200b37da8
     border: 1px solid #173b35;
   }
 
@@ -211,9 +216,15 @@
   /* Enquire */
 
   .enquire-btn {
+<<<<<<< HEAD
+    background: #894b3c;
+    color: white;
+    border: 1px solid #894b3c;
+=======
     background: #d8b14a;
     color: white ;
     border: 1px solid #d8b14a;
+>>>>>>> 450f4b3978a797059e69b91a714ba8e200b37da8
   }
 
   .action-btn:active {

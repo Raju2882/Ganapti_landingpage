@@ -50,9 +50,9 @@ export default function Hero() {
                         </span>
 
                         <h1 className="hero-title">
-                            Premium Plots
+                            Premium Plots In
                             <br />
-                            <span>In Doddaballapur</span>
+                            <span className="hero-title"> Doddaballapur</span>
                         </h1>
 
                         <div className="hero-highlights">
@@ -80,9 +80,13 @@ export default function Hero() {
                         </div>
 
                         <div className="hero-buttons">
-                            <a href="https://ashrayaestates.com/wp-content/uploads/2025/12/Ashraya-Aarika-E-Brochure.pdf" className="btn-primary">
+                            <button
+                                type="button"
+                                className="btn-primary"
+                                onClick={() => setOpenModal(true)}
+                            >
                                 Download Brochure
-                            </a>
+                            </button>
                         </div>
 
                         <div className="hero-bottom-message">
@@ -95,7 +99,7 @@ export default function Hero() {
                     <div className="hero-form-card">
 
                         <h2>
-                            Interested in Our Premium Plots?
+                         Your Dream Plot at Aarika
                         </h2>
 
                         <p className="form-subtitle">
@@ -107,7 +111,7 @@ export default function Hero() {
                             className="hero-form-submit"
                             onClick={() => setOpenModal(true)}
                         >
-                            <FaPhoneAlt />
+                           
                             Enquire Now
                         </button>
 

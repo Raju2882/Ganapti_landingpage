@@ -18,7 +18,7 @@
 /* LEFT */
 
 .contact-label {
-  color: #bd913c;
+  color:#894b3c;
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 2px;
@@ -34,7 +34,7 @@
 }
 
 .contact-left h2 span {
-  color: #bd913c;
+  color: #894b3c;
   font-style: italic;
 }
 
@@ -69,13 +69,13 @@
   justify-content: center;
   background: #fff;
   border: 1px solid #e5d5b4;
-  color: #bd913c;
+  color:#894b3c;
   border-radius: 50%;
   font-size: 16px;
 }
 
 .contact-item h4 {
-  color: #142f50;
+  color: black;
   font-family: Georgia, serif;
   font-size: 17px;
   font-weight: 400;
@@ -90,7 +90,7 @@
 }
 
 .contact-item a {
-  color: #bd913c;
+  color:#894b3c;
   font-size: 11px;
   text-decoration: none;
 }
@@ -130,7 +130,7 @@
 }
 
 .contact-bottom a svg {
-  color: #bd913c;
+  color: #894b3c;
   margin-left: 7px;
   font-size: 10px;
 }
@@ -173,7 +173,7 @@
   height: 42px;
   min-width: 42px;
   background: #f8f2e6;
-  color: #bd913c;
+  color:#894b3c;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -201,7 +201,7 @@
 
 .map-info > a {
   margin-left: auto;
-  color: #bd913c;
+  color:#894b3c;
 }
 
 /* RESPONSIVE */

@@ -9,7 +9,9 @@
     background:#F8FAFC;
     overflow:hidden;
 }
-
+.lifestyle-content h2{
+    color: black;
+}
 .lifestyle-wrapper{
     display:grid;
     grid-template-columns:1.05fr .95fr;
@@ -155,7 +157,7 @@
 
     background:#FFF8E7;
 
-    color:#D8B14A;
+    color:#894b3c;
 
     border:1px solid rgba(216,177,74,.40);
 
@@ -187,7 +189,7 @@
 
     line-height:1.05;
 
-    color:#163B6D;
+    color:black;
 
     font-weight:700;
 
@@ -207,7 +209,7 @@
 
     border-radius:50px;
 
-    background:#D8B14A;
+    background:#894b3c;
 
 }
 
@@ -277,7 +279,7 @@
 
     transform:translateY(-6px);
 
-    border-color:#D8B14A;
+    border-color:#894b3c;
 
     box-shadow:0 18px 35px rgba(22,59,109,.14);
 
@@ -299,9 +301,9 @@
 
     background:#FFF8E7;
 
-    color:#d8b14a;
+    color:#894b3c;
 
-    border:2px solid #D8B14A;
+    border:2px solid #894b3c;
 
     display:flex;
 
@@ -317,7 +319,7 @@
 
 .feature-card:hover .feature-icon{
 
-    background:#d8b14a;
+    background:#894b3c;
 
     color:#FFFFFF;
 
@@ -335,7 +337,7 @@
 
     font-size:16px;
 
-    color:#163B6D;
+    color:black;
 
     font-weight:600;
 
@@ -351,7 +353,7 @@
 
     padding:25px;
 
-    background:#95a99d;
+    background:#894b3c;
 
     border-left:5px solid #D8B14A;
 

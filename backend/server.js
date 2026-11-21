@@ -8,7 +8,7 @@ const app = express();
 const allowedOrigins = [
     "http://localhost:5173",
     "http://localhost:5174",
-    "https://ganapti-landingpage-xa7f.vercel.app",
+    "https://ashraya-backend.vercel.app",
     "https://www.ashrayaestates.in",
     "https://ashrayaestates.in"
 ];

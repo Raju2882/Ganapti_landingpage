@@ -115,6 +115,7 @@
 
 .footer-action-bar {
   display: none;
+  color:#ffffff;
 }
 
 /* =====================================
@@ -171,6 +172,9 @@
     gap: 9px;
     z-index: 9999;
   }
+  .action-btn enquire-btn{
+    color:#ffffff !important;
+  }
 
   .action-btn {
     flex: 1;
@@ -197,24 +201,30 @@
 
   .call-btn {
     background: #ffffff;
+<<<<<<< HEAD
     color: black;
+=======
+    color:#ffffff;
+>>>>>>> 450f4b3978a797059e69b91a714ba8e200b37da8
     border: 1px solid #173b35;
   }
 
   /* WhatsApp */
 
-  .whatsapp-btn {
-    background: #25d366;
-    color: #ffffff;
-    border: 1px solid #25d366;
-  }
+ 
 
   /* Enquire */
 
   .enquire-btn {
+<<<<<<< HEAD
     background: #894b3c;
     color: white;
     border: 1px solid #894b3c;
+=======
+    background: #d8b14a;
+    color: white ;
+    border: 1px solid #d8b14a;
+>>>>>>> 450f4b3978a797059e69b91a714ba8e200b37da8
   }
 
   .action-btn:active {
@@ -235,6 +245,7 @@
   .action-btn {
     font-size: 11px;
     gap: 5px;
+    color:#ffffff;
   }
 
   .action-btn svg {

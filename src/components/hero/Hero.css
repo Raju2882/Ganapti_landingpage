@@ -20,7 +20,8 @@
     display: flex;
     align-items: stretch;
     overflow: hidden;
-    background:#d8b14a;
+    background:#78534a;
+    margin-top:0px;
 }
 
 /* Background */
@@ -48,7 +49,7 @@
 
     background: linear-gradient(
         90deg,
-        rgba(8, 15, 27, 0.88) 0%,
+        rgba(22, 11, 0, 0.88) 0%,
         rgba(8, 15, 27, 0.76) 42%,
         rgba(8, 15, 27, 0.55) 70%,
         rgba(8, 15, 27, 0.35) 100%
@@ -105,7 +106,7 @@
 
 .hero-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(55px, 6vw, 82px);
+    font-size: clamp(40px, 5vw, 70px);
     font-weight: 700;
     line-height: 0.98;
     color: #fff;
@@ -156,7 +157,7 @@
 }
 
 .hero-highlight svg {
-    color: #e6c47a;
+    color: #894b3c;
     font-size: 16px;
 }
 
@@ -181,7 +182,7 @@
     justify-content: center;
 
     text-decoration: none;
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 600;
     border-radius: 8px;
 
@@ -189,12 +190,12 @@
 }
 
 .btn-primary {
-    background:#d8b14a;
+    background:#894b3c;
     color: #fff;
-    border: 1px solid #d8b14a
+    border: 1px solid #894b3c;
 }
 .btn-primary:hover {
-    background: #233b80;
+    background: #894b3c;
     color: #fff;
     transform: translateY(-3px);
 }
@@ -227,7 +228,7 @@
     width: 9px;
     height: 9px;
     border-radius: 50%;
-    background: #d9b568;
+    background: #894b3c;
 }
 
 /* =====================================
@@ -324,7 +325,7 @@
 
 .hero-consent input {
     margin-top: 3px;
-    accent-color: #d8b14a;
+    accent-color: #894b3c;
     flex-shrink: 0;
     cursor: pointer;
 }
@@ -340,7 +341,7 @@
     justify-content: center;
     gap: 10px;
 
-    background:#d8b14a;
+    background:#894b3c;
     color: #fff;
 
     border-radius: 9px;
@@ -354,7 +355,7 @@
 }
 
 .hero-form-submit:hover {
-    background: #d8b14a;
+    background: #894b3c;
     color: #fff;
     transform: translateY(-2px);
 }
@@ -400,7 +401,7 @@
 }
 
 .hero-stat h3 {
-    color:#d8b14a;
+    color:#894b3c;
     font-size: 29px;
     font-weight: 700;
     margin: 0 0 5px;
@@ -596,7 +597,7 @@
     .hero-buttons {
         gap: 10px;
         width: 100%;
-        baclkground:#d8b14a  !important;
+        /*background:#894b3c !important;*/
     }
 
     .btn-primary,
