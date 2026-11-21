@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 
 /* =================================
    GLOBAL RESET
@@ -9,7 +9,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Outfit', sans-serif;
-=======
+
 /* Google Fonts */
 
 *{
@@ -17,7 +17,6 @@
   padding:0;
   box-sizing:border-box;
   font-family:Outfit, sans-serifim !important;
->>>>>>> 450f4b3978a797059e69b91a714ba8e200b37da8
 }
 
 html {
