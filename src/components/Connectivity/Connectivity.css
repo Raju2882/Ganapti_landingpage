@@ -6,7 +6,7 @@
     position:relative;
     overflow:hidden;
     padding:70px 0;
-    background:#95a99d;
+    background:#894b3c;
 }
 
 .connectivity::before{
@@ -278,7 +278,7 @@
 
 .connect-card:hover .connect-icon{
 
-    background:#d8b14a;
+    background:#894b3c;
 
     border-color:#163B6D;
 
@@ -300,7 +300,7 @@
 
     font-size:28px;
 
-    color:#163B6D;
+    color:black;
 
     font-weight:700;
 

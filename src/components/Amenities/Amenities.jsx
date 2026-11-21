@@ -75,6 +75,7 @@ export default function Amenities() {
     ];
 
     return (
+    <section id="amenities">
         <section className="amenities" id="amenities">
 
             <div className="amenities-container">
@@ -118,6 +119,7 @@ export default function Amenities() {
 
             </div>
 
+      </section>
         </section>
     );
 }

@@ -35,7 +35,7 @@ const cards = [
 ];
 
   return (
-
+  <section id="ProjectHigh">
     <section className="connectivity" id="connectivity">
 
       <div className="container-custom">
@@ -139,7 +139,7 @@ const cards = [
       </div>
 
     </section>
-
+  </section>
   );
 
 }

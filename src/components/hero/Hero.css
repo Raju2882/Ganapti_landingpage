@@ -20,7 +20,8 @@
     display: flex;
     align-items: stretch;
     overflow: hidden;
-    background:#894b3c;
+    background:#78534a;
+    margin-top:0px;
 }
 
 /* Background */
@@ -48,7 +49,7 @@
 
     background: linear-gradient(
         90deg,
-        rgba(8, 15, 27, 0.88) 0%,
+        rgba(22, 11, 0, 0.88) 0%,
         rgba(8, 15, 27, 0.76) 42%,
         rgba(8, 15, 27, 0.55) 70%,
         rgba(8, 15, 27, 0.35) 100%
@@ -105,7 +106,7 @@
 
 .hero-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(55px, 6vw, 82px);
+    font-size: clamp(40px, 5vw, 70px);
     font-weight: 700;
     line-height: 0.98;
     color: #fff;
@@ -181,7 +182,7 @@
     justify-content: center;
 
     text-decoration: none;
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 600;
     border-radius: 8px;
 
@@ -194,7 +195,7 @@
     border: 1px solid #894b3c;
 }
 .btn-primary:hover {
-    background: #233b80;
+    background: #894b3c;
     color: #fff;
     transform: translateY(-3px);
 }

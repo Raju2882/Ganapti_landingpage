@@ -1,5 +1,6 @@
 
 import "./EnquiryModal.css";
+
 import {
     FaTimes,
     FaPhoneAlt,
@@ -7,18 +8,18 @@ import {
     FaDownload,
     FaWhatsapp
 } from "react-icons/fa";
+
 import { useState } from "react";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
+const GOOGLE_SHEET_URL =
+    "https://docs.google.com/spreadsheets/d/1Ta36V18wWqZ8U0xAPkvGkvUoKjbPMY6Zjf1bkCRRAwI/edit?pli=1&gid=0#gid=0";
+
 export default function EnquiryModal({ onClose }) {
+
     const [submitted, setSubmitted] = useState(false);
-    const [otp, setOtp] = useState("");
-    const [otpSent, setOtpSent] = useState(false);
-    const [verified, setVerified] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [otpMessage, setOtpMessage] = useState("");
-    const [otpMessageType, setOtpMessageType] = useState("info");
 
     const [formData, setFormData] = useState({
         name: "",
@@ -39,6 +40,7 @@ export default function EnquiryModal({ onClose }) {
 
     // HANDLE FORM INPUTS
     const handleChange = (e) => {
+
         const { name, value, type, checked } = e.target;
 
         setFormData((prev) => ({
@@ -46,133 +48,20 @@ export default function EnquiryModal({ onClose }) {
             [name]: type === "checkbox" ? checked : value
         }));
 
-        if (name === "phone") {
-            setVerified(false);
-            setOtpSent(false);
-            setOtp("");
-            setOtpMessage("");
-        }
-    };
-
-    // SEND OTP
-    const handleSendOTP = async () => {
-        if (!API_URL) {
-            setOtpMessage("Backend URL is not configured.");
-            setOtpMessageType("error");
-            return;
-        }
-
-        if (!/^[6-9]\d{9}$/.test(formData.phone)) {
-            setOtpMessage("Enter a valid 10-digit mobile number.");
-            setOtpMessageType("error");
-            return;
-        }
-
-        try {
-            setLoading(true);
-            setOtpMessage("");
-            setOtp("");
-
-            const response = await fetch(`${API_URL}/api/otp/send`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    phone: formData.phone
-                })
-            });
-
-            const data = await response.json();
-
-            if (!response.ok || !data.success) {
-                throw new Error(data.message || "Unable to generate OTP.");
-            }
-
-            setOtpSent(true);
-
-            if (data.testOtp) {
-                setOtpMessage(
-                    `Your development OTP is: ${data.testOtp}`
-                );
-                setOtpMessageType("success");
-            } else {
-                setOtpMessage(
-                    data.message || "OTP generated successfully."
-                );
-                setOtpMessageType("info");
-            }
-
-        } catch (error) {
-            setOtpMessage(error.message || "Unable to send OTP.");
-            setOtpMessageType("error");
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    // VERIFY OTP
-    const handleVerifyOTP = async () => {
-        if (!API_URL) {
-            setOtpMessage("Backend URL is not configured.");
-            setOtpMessageType("error");
-            return;
-        }
-
-        if (!/^\d{6}$/.test(otp)) {
-            setOtpMessage("Please enter a valid 6-digit OTP.");
-            setOtpMessageType("error");
-            return;
-        }
-
-        try {
-            setLoading(true);
-            setOtpMessage("");
-
-            const response = await fetch(`${API_URL}/api/otp/verify`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    phone: formData.phone,
-                    otp: otp
-                })
-            });
-
-            const data = await response.json();
-
-            if (!response.ok || !data.success) {
-                throw new Error(
-                    data.message || "OTP verification failed."
-                );
-            }
-
-            setVerified(true);
-            setOtpMessage("Mobile number verified successfully!");
-            setOtpMessageType("success");
-
-        } catch (error) {
-            setVerified(false);
-            setOtpMessage(error.message || "OTP verification failed.");
-            setOtpMessageType("error");
-        } finally {
-            setLoading(false);
-        }
     };
 
     // SUBMIT ENQUIRY
     const handleSubmit = async (e) => {
-        e.preventDefault();
 
-        if (!verified) {
-            setOtpMessage("Please verify your mobile number first.");
-            setOtpMessageType("error");
-            return;
-        }
+        e.preventDefault();
 
         if (!formData.authorization) {
             alert("Please accept the authorization.");
+            return;
+        }
+
+        if (!/^[6-9]\d{9}$/.test(formData.phone)) {
+            alert("Please enter a valid 10-digit mobile number.");
             return;
         }
 
@@ -182,6 +71,7 @@ export default function EnquiryModal({ onClose }) {
         }
 
         try {
+
             setLoading(true);
 
             const response = await fetch(`${API_URL}/api/leads/add`, {
@@ -192,35 +82,59 @@ export default function EnquiryModal({ onClose }) {
                 body: JSON.stringify(formData)
             });
 
-            const data = await response.json();
+            const responseText = await response.text();
 
+            console.log("Backend status:", response.status);
+            console.log("Backend response:", responseText);
+
+            let data;
+
+            try {
+                data = JSON.parse(responseText);
+            } catch (error) {
+                throw new Error(
+                    `Backend returned an empty or invalid response. Status: ${response.status}`
+                );
+            }
             if (!response.ok || !data.success) {
                 throw new Error(
                     data.message || "Failed to save enquiry."
                 );
             }
-
             console.log("Lead created:", data.leadId);
 
+            // SHOW SUCCESS SCREEN
             setSubmitted(true);
 
+            
+
         } catch (error) {
+
             console.error("Enquiry submission error:", error);
-            alert(error.message || "Unable to submit enquiry. Please try again.");
+
+            alert(
+                error.message ||
+                "Unable to submit enquiry. Please try again."
+            );
+
         } finally {
+
             setLoading(false);
+
         }
+
     };
 
     return (
+
         <div
             className="enquiry-overlay"
             onClick={onClose}
         >
+
             <div
-                className={`enquiry-modal ${
-                    submitted ? "success-modal" : ""
-                }`}
+                className={`enquiry-modal ${submitted ? "success-modal" : ""
+                    }`}
                 onClick={(e) => e.stopPropagation()}
             >
 
@@ -249,6 +163,8 @@ export default function EnquiryModal({ onClose }) {
 
                             <div className="hero-form-fields">
 
+                                {/* NAME */}
+
                                 <input
                                     type="text"
                                     name="name"
@@ -257,6 +173,8 @@ export default function EnquiryModal({ onClose }) {
                                     onChange={handleChange}
                                     required
                                 />
+
+                                {/* EMAIL */}
 
                                 <input
                                     type="email"
@@ -267,113 +185,31 @@ export default function EnquiryModal({ onClose }) {
                                     required
                                 />
 
-                                {/* PHONE AND OTP SECTION */}
+                                {/* PHONE - NO OTP */}
 
-                                <div>
+                                <div className="phone-input-wrapper">
+                                    <span className="country-code">+91</span>
 
                                     <input
                                         type="tel"
                                         name="phone"
-                                        placeholder="Contact Number *"
+                                        placeholder="Enter 10-digit mobile number"
                                         value={formData.phone}
-                                        onChange={handleChange}
+                                        onChange={(e) => {
+                                            const value = e.target.value
+                                                .replace(/\D/g, "")
+                                                .slice(0, 10);
+
+                                            setFormData((prev) => ({
+                                                ...prev,
+                                                phone: value
+                                            }));
+                                        }}
                                         maxLength={10}
+                                        inputMode="numeric"
                                         required
-                                        disabled={verified}
-                                        style={{ width: "100%" }}
                                     />
-
-                                    {!verified && (
-                                        <button
-                                            type="button"
-                                            onClick={handleSendOTP}
-                                            disabled={loading}
-                                            style={{
-                                                marginTop: "8px",
-                                                padding: "9px 15px",
-                                                cursor: loading
-                                                    ? "not-allowed"
-                                                    : "pointer"
-                                            }}
-                                        >
-                                            {loading
-                                                ? "Please wait..."
-                                                : otpSent
-                                                    ? "Resend OTP"
-                                                    : "Send OTP"}
-                                        </button>
-                                    )}
-
-                                    {otpSent && !verified && (
-                                        <div style={{ marginTop: "10px" }}>
-
-                                            <input
-                                                type="text"
-                                                placeholder="Enter 6-digit OTP"
-                                                value={otp}
-                                                onChange={(e) =>
-                                                    setOtp(
-                                                        e.target.value
-                                                            .replace(/\D/g, "")
-                                                            .slice(0, 6)
-                                                    )
-                                                }
-                                                maxLength={6}
-                                                inputMode="numeric"
-                                                style={{ width: "100%" }}
-                                            />
-
-                                            <button
-                                                type="button"
-                                                onClick={handleVerifyOTP}
-                                                disabled={loading}
-                                                style={{
-                                                    marginTop: "8px",
-                                                    padding: "9px 15px",
-                                                    cursor: loading
-                                                        ? "not-allowed"
-                                                        : "pointer"
-                                                }}
-                                            >
-                                                {loading
-                                                    ? "Verifying..."
-                                                    : "Verify OTP"}
-                                            </button>
-
-                                        </div>
-                                    )}
-
-                                    {otpMessage && (
-                                        <p
-                                            style={{
-                                                marginTop: "10px",
-                                                fontSize: "13px",
-                                                color:
-                                                    otpMessageType === "success"
-                                                        ? "green"
-                                                        : otpMessageType === "error"
-                                                            ? "red"
-                                                            : "#294b91"
-                                            }}
-                                        >
-                                            {verified && <FaCheck />}{" "}
-                                            {otpMessage}
-                                        </p>
-                                    )}
-
-                                    {verified && (
-                                        <p
-                                            style={{
-                                                color: "green",
-                                                marginTop: "8px"
-                                            }}
-                                        >
-                                            <FaCheck /> Mobile number verified
-                                        </p>
-                                    )}
-
                                 </div>
-
                                 {/* BUDGET */}
 
                                 <select
@@ -385,18 +221,23 @@ export default function EnquiryModal({ onClose }) {
                                     <option value="">
                                         Select Your Budget *
                                     </option>
+
                                     <option value="INR 45 Lakhs">
                                         INR 45 Lakhs
                                     </option>
+
                                     <option value="INR 56 Lakhs">
                                         INR 56 Lakhs
                                     </option>
+
                                     <option value="INR 65 to 75 Lakhs">
                                         INR 65 to 75 Lakhs
                                     </option>
+
                                     <option value="Above 75 Lakhs">
                                         Above 75 Lakhs
                                     </option>
+
                                 </select>
 
                                 {/* SITE VISIT */}
@@ -410,18 +251,23 @@ export default function EnquiryModal({ onClose }) {
                                     <option value="">
                                         Preferred Site Visit? *
                                     </option>
+
                                     <option value="Immediately">
                                         Immediately
                                     </option>
+
                                     <option value="This Weekend">
                                         This Weekend
                                     </option>
+
                                     <option value="Next Weekend">
                                         Next Weekend
                                     </option>
+
                                     <option value="Planning for Later">
                                         Planning for Later
                                     </option>
+
                                 </select>
 
                             </div>
@@ -455,12 +301,15 @@ export default function EnquiryModal({ onClose }) {
                             <button
                                 type="submit"
                                 className="hero-form-submit"
-                                disabled={!verified || loading}
+                                disabled={loading}
                             >
+
                                 <FaPhoneAlt />
+
                                 {loading
                                     ? "Submitting..."
                                     : "Book My Free Site Visit"}
+
                             </button>
 
                         </form>
@@ -493,6 +342,8 @@ export default function EnquiryModal({ onClose }) {
                             your dream plot.
                         </p>
 
+                     
+
                         <a
                             href={brochureUrl}
                             target="_blank"
@@ -518,6 +369,9 @@ export default function EnquiryModal({ onClose }) {
                 )}
 
             </div>
+
         </div>
+
     );
+
 }

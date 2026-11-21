@@ -78,7 +78,7 @@
     height: 36px;
     border: none;
     border-radius: 50%;
-    background: #D8B14A;
+    background: #894b3c;
     color: #fff;
     font-size: 16px;
     cursor: pointer;
@@ -110,7 +110,7 @@
     width: 100%;
     min-height: 52px;
     margin-top: 18px;
-    background:#D8B14A;
+    background:#894b3c;
     color: white;
     border: none;
     border-radius: 8px;
@@ -120,7 +120,7 @@
 }
 
 .popup-hero-form .hero-form-submit:hover {
-    background:#D8B14A;
+    background:#894b3c;
 }
 
 .popup-hero-form .hero-form-note {
@@ -179,7 +179,7 @@
     height: 80px;
     border-radius: 50%;
     background: #e8fbf2;
-    color: #079b68;
+    color: #894b3c;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -188,14 +188,14 @@
 }
 
 .enquiry-success h2 {
-    color: #142f50;
+    color:#894b3c;
     font-size: 28px;
     font-weight: 700;
     margin-bottom: 18px;
 }
 
 .enquiry-success h3 {
-    color: #294b91;
+    color: #894b3c;
     font-size: 18px;
     line-height: 1.5;
     font-weight: 500;
@@ -227,12 +227,12 @@
 }
 
 .success-download {
-    background: #294b9b;
+    background: #894b3c;
     box-shadow: 0 6px 14px rgba(41, 75, 155, 0.2);
 }
 
 .success-download:hover {
-    background: #1d387b;
+    background:#894b3c;
     color: white;
 }
 
@@ -262,4 +262,45 @@
     .enquiry-success p {
         font-size: 13px;
     }
+}
+
+/* Phone number with country code */
+
+.phone-input-wrapper {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;
+    width: 100%;
+    height: 52px;
+    border: 1px solid #ddd;
+    border-radius: 7px;
+    overflow: hidden;
+    background: #fff;
+    grid-column: 1 / -1;
+}
+
+.phone-input-wrapper .country-code {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 0 15px;
+    background: #f8f8f8;
+    color: #0F3D3E;
+    font-weight: 600;
+    border-right: 1px solid #ddd;
+    white-space: nowrap;
+}
+
+.phone-input-wrapper input {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    height: 100%;
+    border: none !important;
+    outline: none;
+    padding: 0 13px;
+    margin: 0;
+    background: transparent;
+    font-family: 'Outfit', sans-serif;
 }
