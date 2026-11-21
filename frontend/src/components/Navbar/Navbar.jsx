@@ -42,8 +42,6 @@ export default function Navbar() {
     { label: "Prime Location", id: "PrimeLocation" },
     { label:"ProjectHighlights",id:"ProjectHigh"},
     { label: "Amenities", id: "amenities" },
-
-    
     { label: "Contact", id: "contact" },
 
   ];
