@@ -201,11 +201,11 @@
 
   .call-btn {
     background: #ffffff;
-<<<<<<< HEAD
+
     color: black;
-=======
-    color:#ffffff;
->>>>>>> 450f4b3978a797059e69b91a714ba8e200b37da8
+
+    
+
     border: 1px solid #173b35;
   }
 
@@ -216,15 +216,15 @@
   /* Enquire */
 
   .enquire-btn {
-<<<<<<< HEAD
+
     background: #894b3c;
     color: white;
     border: 1px solid #894b3c;
-=======
-    background: #d8b14a;
+
+    background: #894b3c;
     color: white ;
-    border: 1px solid #d8b14a;
->>>>>>> 450f4b3978a797059e69b91a714ba8e200b37da8
+    border: 1px solid#894b3c;
+
   }
 
   .action-btn:active {
