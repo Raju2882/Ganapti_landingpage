@@ -9,16 +9,27 @@ const allowedOrigins = [
     "http://localhost:5173",
     "http://localhost:5174",
     "https://ganapti-landingpage-xa7f.vercel.app",
-    "https://ganapti-frontend.vercel.app"
+    "https://www.ashrayaestates.in",
+    "https://ashrayaestates.in"
 ];
 
 // CORS configuration
-app.use(cors({
-    origin: allowedOrigins,
+const corsOptions = {
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            console.log("Blocked CORS origin:", origin);
+            callback(null, false);
+        }
+    },
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true
-}));
+    credentials: true,
+    optionsSuccessStatus: 204
+};
+
+app.use(cors(corsOptions));
 
 // Parse JSON
 app.use(express.json());
