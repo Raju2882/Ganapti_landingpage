@@ -1,21 +1,16 @@
-
 const crypto = require("crypto");
 
-const hash = (value) => {
-    return crypto
-        .createHash("sha256")
+const hash = (value) =>
+    crypto.createHash("sha256")
         .update(value)
         .digest("hex");
-};
 
-const normalizeEmail = (email) => {
-    return String(email || "").trim().toLowerCase();
-};
+const normalizeEmail = (email) =>
+    String(email || "").trim().toLowerCase();
 
 const normalizePhone = (phone) => {
     let number = String(phone || "").replace(/\D/g, "");
 
-    // Add India country code if missing
     if (number.length === 10) {
         number = "91" + number;
     }
@@ -26,7 +21,12 @@ const normalizePhone = (phone) => {
 async function sendLeadToMeta({
     email,
     phone,
-    eventId
+    eventId,
+    eventSourceUrl,
+    userAgent,
+    clientIp,
+    fbp,
+    fbc
 }) {
     const pixelId = process.env.META_PIXEL_ID;
     const accessToken = process.env.META_CAPI_TOKEN;
@@ -41,32 +41,29 @@ async function sendLeadToMeta({
     const normalizedEmail = normalizeEmail(email);
     const normalizedPhone = normalizePhone(phone);
 
-    if (normalizedEmail) {
-        userData.em = [hash(normalizedEmail)];
-    }
+    if (normalizedEmail) userData.em = [hash(normalizedEmail)];
+    if (normalizedPhone) userData.ph = [hash(normalizedPhone)];
 
-    if (normalizedPhone) {
-        userData.ph = [hash(normalizedPhone)];
-    }
+    if (userAgent) userData.client_user_agent = userAgent;
+    if (clientIp) userData.client_ip_address = clientIp;
+    if (fbp) userData.fbp = fbp;
+    if (fbc) userData.fbc = fbc;
 
     if (!userData.em && !userData.ph) {
-        throw new Error("No valid customer data for Meta.");
+        throw new Error("No customer matching data available.");
+    }
+
+    if (!eventSourceUrl || !userAgent) {
+        throw new Error("Website event URL or user agent is missing.");
     }
 
     const event = {
         event_name: "Lead",
         event_time: Math.floor(Date.now() / 1000),
         event_id: eventId,
-        action_source: "system_generated",
-
-        user_data: userData,
-
-        custom_data: {
-            event_source: "crm",
-            lead_event_source:
-                process.env.META_LEAD_EVENT_SOURCE ||
-                "Ashraya Estates CRM"
-        }
+        action_source: "website",
+        event_source_url: eventSourceUrl,
+        user_data: userData
     };
 
     const payload = {
@@ -74,8 +71,7 @@ async function sendLeadToMeta({
     };
 
     if (process.env.META_TEST_EVENT_CODE) {
-        payload.test_event_code =
-            process.env.META_TEST_EVENT_CODE;
+        payload.test_event_code = process.env.META_TEST_EVENT_CODE;
     }
 
     const url =
@@ -84,9 +80,7 @@ async function sendLeadToMeta({
 
     const response = await fetch(url, {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
     });
 
@@ -98,7 +92,6 @@ async function sendLeadToMeta({
     }
 
     console.log("Meta Lead event sent:", result);
-
     return result;
 }
 
