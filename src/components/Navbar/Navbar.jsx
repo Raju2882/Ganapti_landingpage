@@ -39,11 +39,9 @@ export default function Navbar() {
 
   const menuItems = [
     { label: "Home", id: "home" },
-    { label: "Pime Location", id: "PrimeLocation" },
+    { label: "Prime Location", id: "PrimeLocation" },
     { label:"ProjectHighlights",id:"ProjectHigh"},
     { label: "Amenities", id: "amenities" },
-
-    
     { label: "Contact", id: "contact" },
 
   ];
@@ -75,13 +73,10 @@ export default function Navbar() {
 
               <div>
                 <small>Call Us</small>
-<<<<<<< HEAD
-                <h4>+91 99649 10330</h4>
-=======
+
 
                 <h4>+91 75410 14101</h4>
 
->>>>>>> 450f4b3978a797059e69b91a714ba8e200b37da8
               </div>
             </a>
 
