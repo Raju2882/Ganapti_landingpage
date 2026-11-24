@@ -3,13 +3,11 @@ import "./EnquiryModal.css";
 
 import {
     FaTimes,
-    FaPhoneAlt,
-    FaCheck,
-    FaDownload,
-    FaWhatsapp
+    FaPhoneAlt
 } from "react-icons/fa";
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -18,7 +16,8 @@ const GOOGLE_SHEET_URL =
 
 export default function EnquiryModal({ onClose }) {
 
-    const [submitted, setSubmitted] = useState(false);
+    const navigate = useNavigate();
+
     const [loading, setLoading] = useState(false);
 
     const [formData, setFormData] = useState({
@@ -32,11 +31,6 @@ export default function EnquiryModal({ onClose }) {
         callingSlot: "",
         authorization: false
     });
-
-    const brochureUrl =
-        "https://ashrayaestates.com/wp-content/uploads/2025/12/Ashraya-Aarika-E-Brochure.pdf";
-
-    const whatsappUrl = "https://wa.me/919964910330";
 
     // HANDLE FORM INPUTS
     const handleChange = (e) => {
@@ -54,6 +48,8 @@ export default function EnquiryModal({ onClose }) {
     const handleSubmit = async (e) => {
 
         e.preventDefault();
+
+        if (loading) return;
 
         if (!formData.authorization) {
             alert("Please accept the authorization.");
@@ -96,17 +92,17 @@ export default function EnquiryModal({ onClose }) {
                     `Backend returned an empty or invalid response. Status: ${response.status}`
                 );
             }
+
             if (!response.ok || !data.success) {
                 throw new Error(
                     data.message || "Failed to save enquiry."
                 );
             }
+
             console.log("Lead created:", data.leadId);
 
-            // SHOW SUCCESS SCREEN
-            setSubmitted(true);
-
-            
+            // REDIRECT ONLY AFTER SUCCESSFUL BACKEND RESPONSE
+            navigate("/thankyou");
 
         } catch (error) {
 
@@ -133,10 +129,11 @@ export default function EnquiryModal({ onClose }) {
         >
 
             <div
-                className={`enquiry-modal ${submitted ? "success-modal" : ""
-                    }`}
+                className="enquiry-modal"
                 onClick={(e) => e.stopPropagation()}
             >
+
+                {/* CLOSE BUTTON */}
 
                 <button
                     type="button"
@@ -147,226 +144,187 @@ export default function EnquiryModal({ onClose }) {
                     <FaTimes />
                 </button>
 
-                {!submitted ? (
+                {/* ENQUIRY FORM */}
 
-                    <div className="hero-form-card popup-hero-form">
+                <div className="hero-form-card popup-hero-form">
 
-                        <h2>
-                            Connect With Our Property Experts
-                        </h2>
+                    <h2>
+                        Connect With Our Property Experts
+                    </h2>
 
-                        <p className="form-subtitle">
-                            Get complete project details and site visit assistance.
-                        </p>
+                    <p className="form-subtitle">
+                        Get complete project details and site visit assistance.
+                    </p>
 
-                        <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit}>
 
-                            <div className="hero-form-fields">
+                        <div className="hero-form-fields">
 
-                                {/* NAME */}
+                            {/* NAME */}
+
+                            <input
+                                type="text"
+                                name="name"
+                                placeholder="Full Name *"
+                                value={formData.name}
+                                onChange={handleChange}
+                                required
+                            />
+
+                            {/* EMAIL */}
+
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="Email Address *"
+                                value={formData.email}
+                                onChange={handleChange}
+                                required
+                            />
+
+                            {/* PHONE - NO OTP */}
+
+                            <div className="phone-input-wrapper">
+
+                                <span className="country-code">
+                                    +91
+                                </span>
 
                                 <input
-                                    type="text"
-                                    name="name"
-                                    placeholder="Full Name *"
-                                    value={formData.name}
-                                    onChange={handleChange}
+                                    type="tel"
+                                    name="phone"
+                                    placeholder="Enter 10-digit mobile number"
+                                    value={formData.phone}
+                                    onChange={(e) => {
+
+                                        const value = e.target.value
+                                            .replace(/\D/g, "")
+                                            .slice(0, 10);
+
+                                        setFormData((prev) => ({
+                                            ...prev,
+                                            phone: value
+                                        }));
+
+                                    }}
+                                    maxLength={10}
+                                    inputMode="numeric"
                                     required
                                 />
 
-                                {/* EMAIL */}
-
-                                <input
-                                    type="email"
-                                    name="email"
-                                    placeholder="Email Address *"
-                                    value={formData.email}
-                                    onChange={handleChange}
-                                    required
-                                />
-
-                                {/* PHONE - NO OTP */}
-
-                                <div className="phone-input-wrapper">
-                                    <span className="country-code">+91</span>
-
-                                    <input
-                                        type="tel"
-                                        name="phone"
-                                        placeholder="Enter 10-digit mobile number"
-                                        value={formData.phone}
-                                        onChange={(e) => {
-                                            const value = e.target.value
-                                                .replace(/\D/g, "")
-                                                .slice(0, 10);
-
-                                            setFormData((prev) => ({
-                                                ...prev,
-                                                phone: value
-                                            }));
-                                        }}
-                                        maxLength={10}
-                                        inputMode="numeric"
-                                        required
-                                    />
-                                </div>
-                                {/* BUDGET */}
-
-                                <select
-                                    name="budget"
-                                    value={formData.budget}
-                                    onChange={handleChange}
-                                    required
-                                >
-                                    <option value="">
-                                        Select Your Budget *
-                                    </option>
-
-                                    <option value="INR 45 Lakhs">
-                                        INR 45 Lakhs
-                                    </option>
-
-                                    <option value="INR 56 Lakhs">
-                                        INR 56 Lakhs
-                                    </option>
-
-                                    <option value="INR 65 to 75 Lakhs">
-                                        INR 65 to 75 Lakhs
-                                    </option>
-
-                                    <option value="Above 75 Lakhs">
-                                        Above 75 Lakhs
-                                    </option>
-
-                                </select>
-
-                                {/* SITE VISIT */}
-
-                                <select
-                                    name="callingSlot"
-                                    value={formData.callingSlot}
-                                    onChange={handleChange}
-                                    required
-                                >
-                                    <option value="">
-                                        Preferred Site Visit? *
-                                    </option>
-
-                                    <option value="Immediately">
-                                        Immediately
-                                    </option>
-
-                                    <option value="This Weekend">
-                                        This Weekend
-                                    </option>
-
-                                    <option value="Next Weekend">
-                                        Next Weekend
-                                    </option>
-
-                                    <option value="Planning for Later">
-                                        Planning for Later
-                                    </option>
-
-                                </select>
-
                             </div>
 
-                            {/* AUTHORIZATION */}
+                            {/* BUDGET */}
 
-                            <div className="hero-form-authorization">
-
-                                <label>
-
-                                    <input
-                                        type="checkbox"
-                                        name="authorization"
-                                        checked={formData.authorization}
-                                        onChange={handleChange}
-                                        required
-                                    />
-
-                                    <span>
-                                        I authorize Ashraya Estates and its representatives
-                                        to contact me with updates and notifications via
-                                        Email, SMS, WhatsApp or Call. This will override DND/NDNC.
-                                    </span>
-
-                                </label>
-
-                            </div>
-
-                            {/* SUBMIT BUTTON */}
-
-                            <button
-                                type="submit"
-                                className="hero-form-submit"
-                                disabled={loading}
+                            <select
+                                name="budget"
+                                value={formData.budget}
+                                onChange={handleChange}
+                                required
                             >
 
-                                <FaPhoneAlt />
+                                <option value="">
+                                    Select Your Budget *
+                                </option>
 
-                                {loading
-                                    ? "Submitting..."
-                                    : "Book My Free Site Visit"}
+                                <option value="INR 45 Lakhs">
+                                    INR 45 Lakhs
+                                </option>
 
-                            </button>
+                                <option value="INR 56 Lakhs">
+                                    INR 56 Lakhs
+                                </option>
 
-                        </form>
+                                <option value="INR 65 to 75 Lakhs">
+                                    INR 65 to 75 Lakhs
+                                </option>
 
-                        <p className="hero-form-note">
-                            Our property consultant will assist you shortly.
-                        </p>
+                                <option value="Above 75 Lakhs">
+                                    Above 75 Lakhs
+                                </option>
 
-                    </div>
+                            </select>
 
-                ) : (
+                            {/* SITE VISIT */}
 
-                    /* SUCCESS SCREEN */
+                            <select
+                                name="callingSlot"
+                                value={formData.callingSlot}
+                                onChange={handleChange}
+                                required
+                            >
 
-                    <div className="enquiry-success">
+                                <option value="">
+                                    Preferred Site Visit? *
+                                </option>
 
-                        <div className="success-check">
-                            <FaCheck />
+                                <option value="Immediately">
+                                    Immediately
+                                </option>
+
+                                <option value="This Weekend">
+                                    This Weekend
+                                </option>
+
+                                <option value="Next Weekend">
+                                    Next Weekend
+                                </option>
+
+                                <option value="Planning for Later">
+                                    Planning for Later
+                                </option>
+
+                            </select>
+
                         </div>
 
-                        <h2>Submission Successful!</h2>
+                        {/* AUTHORIZATION */}
 
-                        <h3>
-                            Thank You for Connecting with Ashraya Estates
-                        </h3>
+                        <div className="hero-form-authorization">
 
-                        <p>
-                            Our property experts will get in touch with you
-                            shortly to guide you on your journey to finding
-                            your dream plot.
-                        </p>
+                            <label>
 
-                     
+                                <input
+                                    type="checkbox"
+                                    name="authorization"
+                                    checked={formData.authorization}
+                                    onChange={handleChange}
+                                    required
+                                />
 
-                        <a
-                            href={brochureUrl}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="success-download"
+                                <span>
+                                    I authorize Ashraya Estates and its representatives
+                                    to contact me with updates and notifications via
+                                    Email, SMS, WhatsApp or Call. This will override DND/NDNC.
+                                </span>
+
+                            </label>
+
+                        </div>
+
+                        {/* SUBMIT BUTTON */}
+
+                        <button
+                            type="submit"
+                            className="hero-form-submit"
+                            disabled={loading}
                         >
-                            <FaDownload />
-                            Download Brochure PDF
-                        </a>
 
-                        <a
-                            href={whatsappUrl}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="success-whatsapp"
-                        >
-                            <FaWhatsapp />
-                            Live Chat On WhatsApp
-                        </a>
+                            <FaPhoneAlt />
 
-                    </div>
+                            {loading
+                                ? "Submitting..."
+                                : "Book My Free Site Visit"}
 
-                )}
+                        </button>
+
+                    </form>
+
+                    <p className="hero-form-note">
+                        Our property consultant will assist you shortly.
+                    </p>
+
+                </div>
 
             </div>
 

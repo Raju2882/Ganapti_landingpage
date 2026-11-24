@@ -1,0 +1,128 @@
+
+.thankyou-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(7px);
+  padding: 20px;
+}
+
+.thankyou-modal {
+  position: relative;
+  width: 100%;
+  max-width: 465px;
+  background: #fff;
+  border-radius: 17px;
+  padding: 78px 28px 41px;
+  text-align: center;
+  animation: popupShow 0.35s ease;
+}
+
+@keyframes popupShow {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.thankyou-close {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  background: #914f3d;
+  color: white;
+  cursor: pointer;
+}
+
+.success-icon {
+  width: 74px;
+  height: 74px;
+  margin: 0 auto 25px;
+  border-radius: 50%;
+  background: #e5fbf2;
+  color: #914f3d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 34px;
+}
+
+.thankyou-modal h2 {
+  color: #914f3d;
+  font-size: 25px;
+  font-weight: 750;
+  margin-bottom: 18px;
+}
+
+.thankyou-modal h4 {
+  color: #914f3d;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.thankyou-modal p {
+  color: #52647b;
+  font-size: 14px;
+  line-height: 1.8;
+  margin-bottom: 28px;
+}
+
+.brochure-btn,
+.whatsapp-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 47px;
+  border-radius: 12px;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  margin-top: 13px;
+  transition: 0.3s;
+}
+
+.brochure-btn {
+  background: #914f3d;
+  box-shadow: 0 5px 12px #914f3d30;
+}
+
+.whatsapp-btn {
+  background: #17c967;
+  box-shadow: 0 5px 12px #17c96730;
+}
+
+.brochure-btn:hover {
+  background: #713c2e;
+  color: white;
+}
+
+.whatsapp-btn:hover {
+  background: #0eae54;
+  color: white;
+}
+
+@media (max-width: 480px) {
+  .thankyou-modal {
+    padding: 65px 20px 30px;
+  }
+
+  .thankyou-modal h2 {
+    font-size: 22px;
+  }
+}

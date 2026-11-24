@@ -894,3 +894,38 @@
     flex: 0 0 auto !important;
   }
 }
+/* Reduce hero top spacing on mobile */
+/* =====================================
+   MOBILE HERO SPACING FIX
+===================================== */
+
+@media (max-width: 768px) {
+
+    .hero {
+        min-height: auto !important;
+        padding: 25px 4% 35px !important;
+        align-items: flex-start;
+    }
+
+    .hero-layout {
+        min-height: auto !important;
+        grid-template-columns: 1fr;
+        gap: 15px;
+        align-items: start;
+    }
+
+    .hero-content {
+        padding: 15px 0 20px !important;
+        margin: 0 !important;
+    }
+
+    .hero-badge {
+        margin-bottom: 15px;
+    }
+
+    .hero-title {
+        margin-top: 0;
+        margin-bottom: 18px;
+    }
+
+}
