@@ -157,7 +157,7 @@
 }
 
 .hero-highlight svg {
-    color: #894b3c;
+    color: #f4f0f0;
     font-size: 16px;
 }
 
@@ -926,6 +926,35 @@
     .hero-title {
         margin-top: 0;
         margin-bottom: 18px;
+    }
+
+}
+@media (max-width: 768px) {
+
+    .hero-stats {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        justify-items: center !important;
+        align-items: center !important;
+        text-align: center !important;
+    }
+
+    .hero-stats > div {
+        width: 100%;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        text-align: center !important;
+    }
+
+    .hero-stats h3,
+    .hero-stats h4,
+    .hero-stats p,
+    .hero-stats span {
+        text-align: center !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
     }
 
 }
