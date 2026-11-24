@@ -68,7 +68,6 @@ body {
 
 .logo img {
     width: 200px;
-    height: 200px;
     object-fit: contain;
     display: block;
 }
@@ -237,10 +236,6 @@ body {
         font-size: 24px;
     }
 
-    .logo img {
-        width: 95px;
-        height: 95px;
-    }
 }
 
 /* ===========================
@@ -270,8 +265,8 @@ body {
     }
 
     .logo img {
-        width: 80px;
-        height: 80px;
+        width: 120px;
+        
     }
 
     .navbar-center {
@@ -348,11 +343,6 @@ body {
 
     .navbar-wrapper {
         height: 75px;
-    }
-
-    .logo img {
-        width: 68px;
-        height: 68px;
     }
 
     .navbar-right {
