@@ -1,6 +1,8 @@
+
 import { useNavigate } from "react-router-dom";
-import React from "react";
+import React, { useEffect } from "react";
 import "./ThankYouModal.css";
+
 import {
     FaCheck,
     FaTimes,
@@ -9,8 +11,18 @@ import {
 } from "react-icons/fa";
 
 const ThankYouModal = ({ onClose }) => {
+
     const whatsappNumber = "91XXXXXXXXXX";
     const navigate = useNavigate();
+
+    // Meta Pixel Lead Tracking
+    useEffect(() => {
+        if (window.fbq) {
+            window.fbq("track", "Lead");
+            console.log("Meta Pixel: Lead Event Fired");
+        }
+    }, []);
+
     return (
         <div className="thankyou-overlay">
             <div className="thankyou-modal">
