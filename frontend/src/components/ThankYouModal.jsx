@@ -1,6 +1,6 @@
 
-import { useNavigate } from "react-router-dom";
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./ThankYouModal.css";
 
 import {
@@ -17,16 +17,24 @@ const ThankYouModal = ({ onClose }) => {
 
     // Meta Pixel Lead Tracking
     useEffect(() => {
+
         if (window.fbq) {
             window.fbq("track", "Lead");
+
             console.log("Meta Pixel: Lead Event Fired");
+
+        } else {
+            console.error("Meta Pixel is not initialized!");
         }
+
     }, []);
 
     return (
         <div className="thankyou-overlay">
+
             <div className="thankyou-modal">
 
+                {/* Close Button */}
                 <button
                     type="button"
                     className="thankyou-close"
@@ -36,10 +44,12 @@ const ThankYouModal = ({ onClose }) => {
                     <FaTimes />
                 </button>
 
+                {/* Success Icon */}
                 <div className="success-icon">
                     <FaCheck />
                 </div>
 
+                {/* Thank You Message */}
                 <h2>Submission Successful!</h2>
 
                 <h4>
@@ -52,6 +62,7 @@ const ThankYouModal = ({ onClose }) => {
                     your dream plot.
                 </p>
 
+                {/* Download Brochure */}
                 <a
                     href="/brochure.pdf"
                     download
@@ -61,6 +72,7 @@ const ThankYouModal = ({ onClose }) => {
                     Download Brochure PDF
                 </a>
 
+                {/* WhatsApp Button */}
                 <a
                     href={`https://wa.me/${whatsappNumber}`}
                     target="_blank"
@@ -72,6 +84,7 @@ const ThankYouModal = ({ onClose }) => {
                 </a>
 
             </div>
+
         </div>
     );
 };
